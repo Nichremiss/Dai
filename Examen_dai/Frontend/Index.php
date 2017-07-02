@@ -83,14 +83,9 @@ session_start();
                                 echo '<li><a href="List_Consultar_Pacientes_Medicos.php">Consultas</a><li>';
                                 echo '<li><a href="List_consultar_atenciones.php"></a>';
                                 echo '<li><a href="Marcar_perdida_realizada_atencion.php">Adm. Atenciones</a><li>';
-
-
-                                echo '<li><li class="active"><a href="agregarFestejo.php"> Registrar Festejo </a></li>';
-                                echo '<li><a href="listar_registro.php" class="selected">Cumpleaños Actuales</a><li>';
                                 echo '<li><a href="logout.php"> Cerrar Session </a><li>';
                             }if (isset($_SESSION["TipoUsuario"]) == 4) {//Paciente
-                                echo '<li><a href="agregarFestejo.php"> Registrar Festejo </a>';
-                                echo '<li><a href="listar_registro.php" class="selected">Cumpleaños Actuales</a>';
+                                echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
                                 echo '<li><a href="logout.php"> Cerrar Session </a>';
                             } else {
                                 echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
