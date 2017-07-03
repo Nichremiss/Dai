@@ -3,8 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Claudia/Documents/NetBeansProjects/Examen_dai/Frontend/Vistas/Home/Login.php</file>
-            <file>file:/C:/Users/Claudia/Documents/NetBeansProjects/Examen_dai/Frontend/Index.php</file>
+            <file>file:/C:/Users/Oskll/Documents/NetBeansProjects/Dai/Examen_dai/Frontend/pruebalogin.php</file>
+            <file>file:/C:/Users/Oskll/Documents/NetBeansProjects/Dai/Examen_dai/Backend/dao/UsuarioDAO.php</file>
+            <file>file:/C:/Users/Oskll/Documents/NetBeansProjects/Dai/Examen_dai/Backend/controller/UsuarioController.php</file>
+            <file>file:/C:/Users/Oskll/Documents/NetBeansProjects/Dai/Examen_dai/Backend/dao/ConexionDB.php</file>
+            <file>file:/C:/Users/Oskll/Documents/NetBeansProjects/Dai/Examen_dai/Frontend/Index.php</file>
         </group>
     </open-files>
 </project-private>

@@ -1,7 +1,34 @@
 <?php
-session_start();
-?>
 
+session_start();
+
+
+include_once __DIR__."/../../../Backend/controller/UsuarioController.php";
+include_once __DIR__."/../../../Backend/controller/PacienteController.php";
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    if(isset($_POST["rut"]) && isset($_POST["nombre"]) && isset($_POST["fecha"]) && isset($_POST["ddl_sexo"])
+            && isset($_POST["direccion"]) && isset($_POST["telefono"])&& isset($_POST["pass"])&& isset($_POST["pass2"])){
+        
+            $paciente = PacienteController::existe($_POST["rut"]);
+            
+            if ($paciente == null) {
+                
+                $exito = PacienteController::agregarPaciente($_POST["rut"], $_POST["nombre"],
+                                                         $_POST["fecha"], $_POST["ddl_sexo"],
+                                                         $_POST["direccion"], $_POST["telefono"], $_POST["pass"], $_POST["pass2"]);
+                
+                $user = UsuarioController::agregarUsuario($_POST["rut"], $_POST["nombre"],$_POST["pass"], $_POST["pass2"], 5);
+                if ($exito && $user) {
+                    
+                    header("location: ../../index.php");
+                    return;
+                }
+            }
+    }
+            
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -118,26 +145,26 @@ session_start();
                                 <div class="wow fadeInRight" data-wow-delay="0.1s">
 
                                     <ul class="lead-list">
-                                        <form action="" method="post" role="form" class="contactForm lead">
+                                        <form action="/Examen_dai/Frontend/Vistas/Paciente/RegistroPaciente.php" method="POST" role="form" class="contactForm lead">
                                             <div class="row">
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Rut</label>
-                                                        <input type="text" name="txtRut" id="txtRut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Nombre Completo</label>
-                                                        <input type="text" name="txtNombre" id="txtNombre" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="nombre" id="nombre" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Fecha Nacimiento</label>
-                                                        <input type="date" name="txtFechaNac" id="txtFechaNac" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="date" name="fecha" id="fecha" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
@@ -169,14 +196,14 @@ session_start();
                                                <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Dirección</label>
-                                                        <input type="text" name="txtDireccion" id="txtDireccion" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
+                                                        <input type="text" name="direccion" id="direccion" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>N° Télefono</label>
-                                                        <input type="txt_fono" name="txt_fono" id="phone" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
+                                                        <input type="number" name="telefono" id="telefono" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
@@ -185,20 +212,21 @@ session_start();
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Contraseña</label>
-                                                        <input type="password" name="txtPass" id="txtPass" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="password" name="pass" id="pass" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Repita Contraseña</label>
-                                                        <input type="password" name="txtPass2" id="txtPass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="password" name="pass2" id="pass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                     <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                        <a href="#" class="btn btn-skin btn-lg">Guardar<i class="fa fa-angle-right"></i></a>
+                                        <input type="submit" class="btn btn-skin btn-lg" value="Guardar"><i class="fa fa-angle-right"></i>
+                                        
                                     </p>
 
                                             <p class="lead-footer">* We'll contact you by phone & email later</p>

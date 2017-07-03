@@ -1,5 +1,25 @@
 <?php
+ include_once __DIR__."/../Backend/dao/ConexionDB.php";
+include_once __DIR__."/../Backend/controller/UsuarioController.php";
+   $conexion = ConexionDB::getConexion();
+
 session_start();
+
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    if(isset($_POST["rut"]) && isset($_POST["password"])) {
+
+       $exito = UsuarioController::validarUsuario($_POST["rut"], $_POST["password"]);
+       
+       if($exito) {
+           header("location: index.php");
+           return;
+       } else {
+           $errorMessage = "usuario o clave incorrectos";
+       }
+    }  
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -69,6 +89,10 @@ session_start();
                     <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                         <ul class="nav navbar-nav">
                             <?php
+                            if (isset($_SESSION["usuario"])) {
+                                echo '<p><b>Usuario autenticado</b>: '.$_SESSION["usuario"].'</p>';
+                                 echo '<li><a href="/Examen_dai/Frontend/logout.php">Cerrar Session</a></li>';
+                            }
                             if (isset($_SESSION["TipoUsuario"]) == 1) {//Director
                                 echo '<li><a href="ConsultarEstadisticas_Dir.php">Estadísticas</a><li>';
                                 echo '<li><a href="Listar_Consultas_Dir.php">Consultar</a><li>';
@@ -89,7 +113,8 @@ session_start();
                                 echo '<li><a href="logout.php"> Cerrar Session </a>';
                             } else {
                                 echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
-                                echo '<li><a href="../Paciente/RegistroPaciente.php">Registro</a></li>';
+                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Paciente/RegistroPaciente.php">Registro</a></li>';
+                                
                             }
                             ?>
                         </ul>
@@ -273,12 +298,12 @@ session_start();
                                         <div id="sendmessage">Your message has been sent. Thank you!</div>
                                         <div id="errormessage"></div>
 
-                                        <form action="" method="post" role="form" class="contactForm lead">
+                                        <form action="index.php" method="POST" role="form" class="contactForm lead">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                                     <div class="form-group">
                                                         <label>Rut</label>
-                                                        <input type="text" name="last_name" id="last_name" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
@@ -288,11 +313,17 @@ session_start();
                                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                                     <div class="form-group">
                                                         <label>Contraseña</label>
-                                                        <input type="text" name="phone" id="phone" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
+                                                        <input type="password" name="password" id="password" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
-                                            </div>          
+                                            </div>    
+                                            <div class="modal-footer">
+                                                <input type="submit" value="Ingresar" class="btn btn-skin btn-block btn-lg">
+
+                                                                     <p class="lead-footer">* Si tiene inconveniente,comuniquese con la administracion</p>
+
+                                             </div>
                                         </form>
                                     </div>
                                 </div>				
@@ -300,12 +331,7 @@ session_start();
                             </div>
                         </div>
                     </div>				
-                    <div class="modal-footer">
-                       <input type="submit" value="Ingresar" class="btn btn-skin btn-block btn-lg">
-
-                                            <p class="lead-footer">* Si tiene inconveniente,comuniquese con la administracion</p>
-
-                    </div>
+                    
                 </div>
 
             </div>

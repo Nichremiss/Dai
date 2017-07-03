@@ -57,14 +57,31 @@ class PacienteDAO implements GenericDAO{
     }
 
     public function existePaciente($rut){
+        $listado = array();
         $query = "SELECT * FROM paciente WHERE PACIENTE_RUT = :rut";
         
         $sentencia = $this->conexion->prepare($query);
        
         
         $sentencia->bindParam(":rut",$rut);
+        $sentencia->execute();
         
-        return $sentencia->execute();
+        if($sentencia != null) {
+            foreach($sentencia as $fila) {
+                $paciente = new Paciente();
+                $paciente->setPacienteRut($fila["PACIENTE_RUT"]);
+                $paciente->setPacienteNombreCompleto($fila["PACIENTE_NOMBRE_COMPLETO"]);
+                $paciente->setPacienteFechaNacimiento($fila["PACIENTE_FECHA_NACIMIENTO"]);
+                $paciente->setPacienteSexo($fila["PACIENTE_SEXO"]);
+                $paciente->setPacienteDomicilio($fila["PACIENTE_DIRECCION"]);
+                $paciente->setPacienteTelefono($fila["PACIENTE_TELEFONO"]);
+                $paciente->setPacientePassword($fila["PACIENTE_PASSWORD"]);
+               
+
+                array_push($listado, $paciente);
+            }
+        }
+        return $listado;
     }
     public function modificar($registro) {
         
