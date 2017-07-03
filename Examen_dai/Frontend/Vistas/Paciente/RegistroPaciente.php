@@ -14,20 +14,20 @@ session_start();
         <title>Exámen Final DAI-*****</title>
 
         <!-- css -->
-        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="plugins/cubeportfolio/css/cubeportfolio.min.css">
-        <link href="css/nivo-lightbox.css" rel="stylesheet" />
-        <link href="css/nivo-lightbox-theme/default/default.css" rel="stylesheet" type="text/css" />
-        <link href="css/owl.carousel.css" rel="stylesheet" media="screen" />
-        <link href="css/owl.theme.css" rel="stylesheet" media="screen" />
-        <link href="css/animate.css" rel="stylesheet" />
-        <link href="css/style.css" rel="stylesheet">
+        <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="../../plugins/cubeportfolio/css/cubeportfolio.min.css">
+        <link href="../../css/nivo-lightbox.css" rel="stylesheet" />
+        <link href="../../css/nivo-lightbox-theme/default/default.css" rel="stylesheet" type="text/css" />
+        <link href="../../css/owl.carousel.css" rel="stylesheet" media="screen" />
+        <link href="../../css/owl.theme.css" rel="stylesheet" media="screen" />
+        <link href="../../css/animate.css" rel="stylesheet" />
+        <link href="../../css/style.css" rel="stylesheet">
 
         <!-- boxed bg -->
-        <link id="bodybg" href="bodybg/bg1.css" rel="stylesheet" type="text/css" />
+        <link id="bodybg" href="../../bodybg/bg1.css" rel="stylesheet" type="text/css" />
         <!-- template skin -->
-        <link id="t-colors" href="color/default.css" rel="stylesheet">
+        <link id="t-colors" href="../../color/default.css" rel="stylesheet">
 
         <!-- =======================================================
             Theme Name: Medicio
@@ -62,7 +62,7 @@ session_start();
                             <i class="fa fa-bars"></i>
                         </button>
                         <a class="navbar-brand" href="index.html">
-                            <img src="img/logo.png" alt="" width="150" height="40" />
+                            <img src="../../img/logo.png" alt="" width="150" height="40" />
                         </a>
                     </div>
                     <!--Navegador con sesiones -->
@@ -107,34 +107,109 @@ session_start();
             <div class="intro-content">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
-                                <h2 class="h-ultra">Centro Médico comunal</h2>
+                                <h2 class="h-ultra">Registro Paciente</h2>
                             </div>
                             <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.1s">
-                                <h4 class="h-light">Dando una mejor calidad de atención para usted</h4>
+                                <h6 class="h-light">Campos Obligatorios *</h6>
                             </div>
                             <div class="well well-trans">
                                 <div class="wow fadeInRight" data-wow-delay="0.1s">
 
                                     <ul class="lead-list">
-                                        <li><span class="fa fa-check fa-2x icon-success"></span> <span class="list"><strong>Mejor atención</strong><br /></span>Rapidez en gestión</li>
-                                        <li><span class="fa fa-check fa-2x icon-success"></span> <span class="list"><strong>Sistema de calidad</strong><br />Reservas online, registros y consultas</span></li>
-                                        <li><span class="fa fa-check fa-2x icon-success"></span> <span class="list"><strong>Mayor seguridad y proceso de información</strong><br /></span></li>
-                                    </ul>
+                                        <form action="" method="post" role="form" class="contactForm lead">
+                                            <div class="row">
+                                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Rut</label>
+                                                        <input type="text" name="txtRut" id="txtRut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <div class="validation"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Nombre Completo</label>
+                                                        <input type="text" name="txtNombre" id="txtNombre" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <div class="validation"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Fecha Nacimiento</label>
+                                                        <input type="date" name="txtFechaNac" id="txtFechaNac" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <div class="validation"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Sexo</label>
+                                                        <select name="ddl_sexo" class="select2" data-allow-clear="true" data-placeholder="" id="ddl_sexo" style="display: block;
+                                                                width: 100%;
+                                                                height: 34px;
+                                                                padding: 6px 12px;
+                                                                font-size: 14px;
+                                                                line-height: 1.42857143;
+                                                                color: #555;
+                                                                background-color: #fff;
+                                                                background-image: none;
+                                                                border: 1px solid #ccc;
+                                                                border-radius: 4px;">
+                                                            <option></option>
+                                                            <optgroup label="Seleccione una opción">
+                                                                <option value="F">Femenino</option>
+                                                                <option value="M">Masculino</option>
+                                                            </optgroup>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                               <div class="col-xs-4 col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Dirección</label>
+                                                        <input type="text" name="txtDireccion" id="txtDireccion" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
+                                                        <div class="validation"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                        <label>N° Télefono</label>
+                                                        <input type="txt_fono" name="txt_fono" id="phone" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
+                                                        <div class="validation"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                               <div class="row">
+                                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Contraseña</label>
+                                                        <input type="password" name="txtPass" id="txtPass" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <div class="validation"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Repita Contraseña</label>
+                                                        <input type="password" name="txtPass2" id="txtPass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <div class="validation"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                        <a href="#" class="btn btn-skin btn-lg">Learn more <i class="fa fa-angle-right"></i></a>
+                                        <a href="#" class="btn btn-skin btn-lg">Guardar<i class="fa fa-angle-right"></i></a>
                                     </p>
+
+                                            <p class="lead-footer">* We'll contact you by phone & email later</p>
+
+                                        </form>
+
+                                    </ul>
+                                  
                                 </div>
                             </div>
-
-
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
-                                <img src="img/dummy/img-1.png" class="img-responsive" alt="" />
-                            </div>
-                        </div>					
+                        </div>				
                     </div>		
                 </div>
             </div>		
@@ -249,81 +324,20 @@ session_start();
                 </div>
             </div>
         </footer>
-
-    </div>
-    <!-- Modal Login (Basic)-->
-    <div id="ModalLogin" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-body">
-
-
-                    <!--contenido-->
-                    <div class="col-md-12">
-                        <div class="form-wrapper">
-                            <div class="wow fadeInRight" data-wow-duration="2s" data-wow-delay="0.2s">
-
-                                <div class="panel panel-skin">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title"><span class="fa fa-pencil-square-o"></span>Login <small>(ingrese datos solicitados</small></h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div id="sendmessage">Your message has been sent. Thank you!</div>
-                                        <div id="errormessage"></div>
-
-                                        <form action="" method="post" role="form" class="contactForm lead">
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Rut</label>
-                                                        <input type="text" name="last_name" id="last_name" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Contraseña</label>
-                                                        <input type="text" name="phone" id="phone" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                            </div>          
-                                        </form>
-                                    </div>
-                                </div>				
-
-                            </div>
-                        </div>
-                    </div>				
-                    <div class="modal-footer">
-                       <input type="submit" value="Ingresar" class="btn btn-skin btn-block btn-lg">
-
-                                            <p class="lead-footer">* Si tiene inconveniente,comuniquese con la administracion</p>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
         <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
 
         <!-- Core JavaScript Files -->
-        <script src="js/jquery.min.js"></script>	 
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.easing.min.js"></script>
-        <script src="js/wow.min.js"></script>
-        <script src="js/jquery.scrollTo.js"></script>
-        <script src="js/jquery.appear.js"></script>
-        <script src="js/stellar.js"></script>
-        <script src="plugins/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/nivo-lightbox.min.js"></script>
-        <script src="js/custom.js"></script>
+        <script src="../../js/jquery.min.js"></script>	 
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/jquery.easing.min.js"></script>
+        <script src="../../js/wow.min.js"></script>
+        <script src="../../js/jquery.scrollTo.js"></script>
+        <script src="../../js/jquery.appear.js"></script>
+        <script src="../../js/stellar.js"></script>
+        <script src="../../plugins/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
+        <script src="../../js/owl.carousel.min.js"></script>
+        <script src="../../js/nivo-lightbox.min.js"></script>
+        <script src="../../js/custom.js"></script>
 
 </body>
 
