@@ -23,18 +23,14 @@ session_start();
         <link href="../../css/owl.theme.css" rel="stylesheet" media="screen" />
         <link href="../../css/animate.css" rel="stylesheet" />
         <link href="../../css/style.css" rel="stylesheet">
+        <link href="../../css/Tabla.css" rel="stylesheet">
 
         <!-- boxed bg -->
         <link id="bodybg" href="../../bodybg/bg1.css" rel="stylesheet" type="text/css" />
         <!-- template skin -->
         <link id="t-colors" href="../../color/default.css" rel="stylesheet">
 
-        <!-- =======================================================
-            Theme Name: Medicio
-            Theme URL: https://bootstrapmade.com/medicio-free-bootstrap-theme/
-            Author: BootstrapMade
-            Author URL: https://bootstrapmade.com
-        ======================================================= -->
+       
     </head>
 
     <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
@@ -92,7 +88,7 @@ session_start();
                                 echo '<li><a href="../Paciente/RegistroPaciente.php">Registro</a></li>';
                             }
                             ?>
-                            
+
                         </ul>
                     </div>
                 </div> 
@@ -167,7 +163,7 @@ session_start();
                                                         </select>
                                                     </div>
                                                 </div>
-                                               <div class="col-xs-4 col-sm-4 col-md-4">
+                                                <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Dirección</label>
                                                         <input type="text" name="txtDireccion" id="txtDireccion" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
@@ -182,7 +178,7 @@ session_start();
                                                     </div>
                                                 </div>
                                             </div>
-                                               <div class="row">
+                                            <div class="row">
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Contraseña</label>
@@ -198,16 +194,16 @@ session_start();
                                                     </div>
                                                 </div>
                                             </div>
-                                    <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                        <a href="#" class="btn btn-skin btn-lg">Guardar<i class="fa fa-angle-right"></i></a>
-                                    </p>
+                                            <p class="text-right wow bounceIn" data-wow-delay="0.4s">
+                                                <a href="#" class="btn btn-skin btn-lg">Guardar<i class="fa fa-angle-right"></i></a>
+                                            </p>
 
                                             <p class="lead-footer">* We'll contact you by phone & email later</p>
 
                                         </form>
 
                                     </ul>
-                                  
+
                                 </div>
                             </div>
                         </div>				
@@ -216,36 +212,37 @@ session_start();
             </div>		
         </section>
         <div class="well well-trans">
-            
-             <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
-                                <h2 class="h-ultra">Lista de Pacientes</h2>
-                            </div>
-                            <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.1s">
-                                <h6 class="h-light">*Elminar Pacientes</h6>
-                            </div>
-           <table>
-            <thead>
-                <tr>
-                    <th>RUT</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Fecha Nacimiento</th>
-                    <th>E-Mail</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <td colspan="5">
-                        Listado de personas registradas
-                    </td>
-                </tr>
-            </tfoot>
-            <tbody>
-              
-                <tr>
-                    
-                    <form action="" method="POST">
+
+            <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
+                <h2 class="h-ultra">Lista de Pacientes</h2>
+            </div>
+            <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.1s">
+                <h6 class="h-light">*Elminar Pacientes</h6>
+            </div>
+            <div class="datagrid">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>RUT</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Fecha Nacimiento</th>
+                            <th>Acción</th>
+                        </tr>
                         
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                Listado de personas registradas
+                            </td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+
+                    <form action="" method="POST">
+
                         <td>164180662</td>
                         <td>Claudia Olivares</td>
                         <td>27/01/1987</td>
@@ -253,11 +250,10 @@ session_start();
                         <td><input type="submit" value="eliminar" name="Eliminar"></td>   
                         <td><input type="hidden" name="txtRut" value=""</td>
                     </form>
-                </tr>
-             
-            </tbody>
-        </table> 
-          
+                    </tr>
+                    </tbody>
+                </table> 
+            </div>
         </div>
 
 
@@ -383,6 +379,6 @@ session_start();
         <script src="../../js/nivo-lightbox.min.js"></script>
         <script src="../../js/custom.js"></script>
 
-</body>
+    </body>
 
 </html>

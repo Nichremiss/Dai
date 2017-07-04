@@ -1,25 +1,24 @@
 <?php
- include_once __DIR__."/../Backend/dao/ConexionDB.php";
-include_once __DIR__."/../Backend/controller/UsuarioController.php";
-   $conexion = ConexionDB::getConexion();
+include_once __DIR__ . "/../Backend/dao/ConexionDB.php";
+include_once __DIR__ . "/../Backend/controller/UsuarioController.php";
+$conexion = ConexionDB::getConexion();
 
 session_start();
 
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-    if(isset($_POST["rut"]) && isset($_POST["password"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["rut"]) && isset($_POST["password"])) {
 
-       $exito = UsuarioController::validarUsuario($_POST["rut"], $_POST["password"]);
-       
-       if($exito) {
-           header("location: index.php");
-           return;
-       } else {
-           $errorMessage = "usuario o clave incorrectos";
-       }
-    }  
+        $exito = UsuarioController::validarUsuario($_POST["rut"], $_POST["password"]);
+
+        if ($exito) {
+            header("location: index.php");
+            return;
+        } else {
+            $errorMessage = "usuario o clave incorrectos";
+        }
+    }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -90,8 +89,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <ul class="nav navbar-nav">
                             <?php
                             if (isset($_SESSION["usuario"])) {
-                                echo '<p><b>Usuario autenticado</b>: '.$_SESSION["usuario"].'</p>';
-                                 echo '<li><a href="/Examen_dai/Frontend/logout.php">Cerrar Session</a></li>';
+                                echo '<p><b>Usuario autenticado</b>: ' . $_SESSION["usuario"] . '</p>';
+                                echo '<li><a href="/Examen_dai/Frontend/logout.php">Cerrar Session</a></li>';
                             }
                             if (isset($_SESSION["TipoUsuario"]) == 1) {//Director
                                 echo '<li><a href="ConsultarEstadisticas_Dir.php">Estadísticas</a><li>';
@@ -114,7 +113,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             } else {
                                 echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
                                 echo '<li><a href="/Examen_dai/Frontend/Vistas/Paciente/RegistroPaciente.php">Registro</a></li>';
-                                
                             }
                             ?>
                         </ul>
@@ -274,17 +272,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
         </footer>
-
     </div>
     <!-- Modal Login (Basic)-->
     <div id="ModalLogin" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
-
-
                     <!--contenido-->
                     <div class="col-md-12">
                         <div class="form-wrapper">
@@ -292,7 +286,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 <div class="panel panel-skin">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title"><span class="fa fa-pencil-square-o"></span>Login <small>(ingrese datos solicitados</small></h3>
+                                        <h3 class="panel-title"><span class="fa fa-pencil-square-o"></span>Login <small>(ingrese datos solicitados)</small></h3>
                                     </div>
                                     <div class="panel-body">
                                         <div id="sendmessage">Your message has been sent. Thank you!</div>
@@ -318,12 +312,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     </div>
                                                 </div>
                                             </div>    
-                                            <div class="modal-footer">
-                                                <input type="submit" value="Ingresar" class="btn btn-skin btn-block btn-lg">
 
-                                                                     <p class="lead-footer">* Si tiene inconveniente,comuniquese con la administracion</p>
-
-                                             </div>
                                         </form>
                                     </div>
                                 </div>				
@@ -331,7 +320,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                         </div>
                     </div>				
-                    
+                    <div class="modal-footer">
+                        <input type="submit" value="Ingresar" class="btn btn-skin btn-block btn-lg">
+                        <p class="lead-footer">* Si tiene inconveniente,comuniquese con la administracion</p>
+                    </div>  
                 </div>
 
             </div>

@@ -115,7 +115,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                 echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
                                 echo '<li><a href="logout.php"> Cerrar Session </a>';
                             } else {
-                                echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
+                                echo ' <li><a href="../../Index.php" >Volver</a></li>;';
                                 echo '<li><a href="../Paciente/RegistroPaciente.php">Registro</a></li>';
                             }
                             ?>
