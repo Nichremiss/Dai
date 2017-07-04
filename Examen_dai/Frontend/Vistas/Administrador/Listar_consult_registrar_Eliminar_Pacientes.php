@@ -57,7 +57,7 @@ session_start();
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                             <i class="fa fa-bars"></i>
                         </button>
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="../../Index.php">
                             <img src="../../img/logo.png" alt="" width="150" height="40" />
                         </a>
                     </div>
@@ -197,13 +197,9 @@ session_start();
                                             <p class="text-right wow bounceIn" data-wow-delay="0.4s">
                                                 <a href="#" class="btn btn-skin btn-lg">Guardar<i class="fa fa-angle-right"></i></a>
                                             </p>
-
                                             <p class="lead-footer">* We'll contact you by phone & email later</p>
-
                                         </form>
-
                                     </ul>
-
                                 </div>
                             </div>
                         </div>				

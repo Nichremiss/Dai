@@ -53,7 +53,7 @@
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                             <i class="fa fa-bars"></i>
                         </button>
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="../../Index.php">
                             <img src="../../img/logo.png" alt="" width="150" height="40" />
                         </a>
                     </div>
@@ -102,7 +102,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
-                                <h2 class="h-ultra">Registro Paciente</h2>
+                                <h2 class="h-ultra">Registro Usuario de Sistema</h2>
                             </div>
                             <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.1s">
                                 <h6 class="h-light">Campos Obligatorios *</h6>
@@ -120,27 +120,10 @@
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                                                <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
-                                                        <label>Nombre Completo</label>
-                                                        <input type="text" name="txtNombre" id="txtNombre" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Fecha Nacimiento</label>
-                                                        <input type="date" name="txtFechaNac" id="txtFechaNac" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Sexo</label>
-                                                        <select name="ddl_sexo" class="select2" data-allow-clear="true" data-placeholder="" id="ddl_sexo" style="display: block;
+                                                        <label>Tipo Usuario</label>
+                                                        <select name="ddl_Tipo_user" class="select2" data-allow-clear="true" data-placeholder="" id="ddl_Tipo_user" style="display: block;
                                                                 width: 100%;
                                                                 height: 34px;
                                                                 padding: 6px 12px;
@@ -153,27 +136,14 @@
                                                                 border-radius: 4px;">
                                                             <option></option>
                                                             <optgroup label="Seleccione una opción">
-                                                                <option value="F">Femenino</option>
-                                                                <option value="M">Masculino</option>
+                                                                <option value="1">Director</option>
+                                                                <option value="2">Administrador</option>
+                                                                <option value="3">Secretaria</option>
                                                             </optgroup>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Dirección</label>
-                                                        <input type="text" name="txtDireccion" id="txtDireccion" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>N° Télefono</label>
-                                                        <input type="txt_fono" name="txt_fono" id="phone" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
@@ -210,19 +180,17 @@
         <div class="well well-trans">
 
             <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
-                <h2 class="h-ultra">Lista de Pacientes</h2>
+                <h2 class="h-ultra">Lista de usuarios</h2>
             </div>
             <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.1s">
-                <h6 class="h-light">*Elminar Pacientes</h6>
+                <h6 class="h-light">*Elminar Usuarios</h6>
             </div>
             <div class="datagrid">
                 <table>
                     <thead>
                         <tr>
                             <th>RUT</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Fecha Nacimiento</th>
+                            <th>Tipo Usuario</th>
                             <th>Acción</th>
                         </tr>
                         
@@ -230,7 +198,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="5">
-                                Listado de personas registradas
+                                Listado de usuarios registrados en sistema
                             </td>
                         </tr>
                     </tfoot>
@@ -240,9 +208,7 @@
                     <form action="" method="POST">
 
                         <td>164180662</td>
-                        <td>Claudia Olivares</td>
-                        <td>27/01/1987</td>
-                        <td>Las esmeraldas 11243</td>
+                        <td>Secretaria</td>
                         <td><input type="submit" value="eliminar" name="Eliminar"></td>   
                         <td><input type="hidden" name="txtRut" value=""</td>
                     </form>

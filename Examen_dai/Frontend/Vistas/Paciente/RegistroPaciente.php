@@ -88,7 +88,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                             <i class="fa fa-bars"></i>
                         </button>
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="../../Index.php">
                             <img src="../../img/logo.png" alt="" width="150" height="40" />
                         </a>
                     </div>
@@ -242,9 +242,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>		
         </section>
-
-
-
         <footer>
             <div class="container">
                 <div class="row">
