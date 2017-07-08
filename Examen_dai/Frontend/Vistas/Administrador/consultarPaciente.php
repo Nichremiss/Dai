@@ -177,10 +177,13 @@
                                             </div>
                                            
 
-                                    <p class="text-right wow bounceIn" data-wow-delay="0.4s">
+                                   
                                        
                                         
+                                    <p class="text-right wow bounceIn" data-wow-delay="0.4s">
+                                        <a href="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php"><input type="button" class="btn btn-skin btn-lg" value="Volver"><i class="fa fa-angle-right"></i></a>
                                     </p>
+                                    
                                             <p class="lead-footer">* We'll contact you by phone & email later</p>
                                    
                                     </ul>

@@ -1,8 +1,5 @@
 <?php
-   
-    session_start();
-
-    
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -33,13 +30,13 @@
         <link id="bodybg" href="../../bodybg/bg1.css" rel="stylesheet" type="text/css" />
         <!-- template skin -->
         <link id="t-colors" href="../../color/default.css" rel="stylesheet">
-        
+
         <script>
-            function Mostrar(){
+            function Mostrar() {
                 $("#buscar").removeAttr("hidden");
-            }   
+            }
         </script>
-       
+
     </head>
 
     <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
@@ -73,38 +70,33 @@
                     <!--Navegador con sesiones -->
                     <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                         <ul class="nav navbar-nav">
-                           <?php
-                            if (isset($_SESSION["usuario"])) {
-                                echo '<p><b>Usuario autenticado</b>: ' . $_SESSION["usuario"] . '</p>';
-                                echo '<li><a href="/Examen_dai/Frontend/logout.php">Cerrar Session</a></li>';
-                                 if ($_SESSION["TipoUsuario"] == 1) {//Director
-                                echo '<li><a href="ConsultarEstadisticas_Dir.php">Estadísticas</a><li>';
-                                echo '<li><a href="Listar_Consultas_Dir.php">Consultar</a><li>';
-                            }if ($_SESSION["TipoUsuario"] == 2) {//Administrador
-                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Medicos.php">Administrar médicos</a><li>';
-                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
-                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Usuarios.php">Administrar Usuarios</a><li>';
-                                
-                            }if ($_SESSION["TipoUsuario"] == 3){//Secretaria
-                                echo '<li><a href="Agendar_Confirmar_anular_atenciones.php">Adm. reservas</a><li>';
-                                echo '<li><a href="List_Consultar_Pacientes_Medicos.php">Consultas</a><li>';
-                                echo '<li><a href="List_consultar_atenciones.php"></a>';
-                                echo '<li><a href="Marcar_perdida_realizada_atencion.php">Adm. Atenciones</a><li>';
-                                
-                            }if ($_SESSION["TipoUsuario"] == 4) {//Paciente
-                                echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
-                                
-                                }
-                                if ($_SESSION["TipoUsuario"] == 5) {//Paciente
-                                echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
-                                
-                                }
-                            }
-                            else {
-                                echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
-                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Paciente/RegistroPaciente.php">Registro</a></li>';
-                            }
-                            ?>
+<?php
+if (isset($_SESSION["usuario"])) {
+    echo '<p><b>Usuario autenticado</b>: ' . $_SESSION["usuario"] . '</p>';
+    echo '<li><a href="/Examen_dai/Frontend/logout.php">Cerrar Session</a></li>';
+    if ($_SESSION["TipoUsuario"] == 1) {//Director
+        echo '<li><a href="ConsultarEstadisticas_Dir.php">Estadísticas</a><li>';
+        echo '<li><a href="Listar_Consultas_Dir.php">Consultar</a><li>';
+    }if ($_SESSION["TipoUsuario"] == 2) {//Administrador
+        echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Medicos.php">Administrar médicos</a><li>';
+        echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
+        echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Usuarios.php">Administrar Usuarios</a><li>';
+    }if ($_SESSION["TipoUsuario"] == 3) {//Secretaria
+        echo '<li><a href="Agendar_Confirmar_anular_atenciones.php">Adm. reservas</a><li>';
+        echo '<li><a href="List_Consultar_Pacientes_Medicos.php">Consultas</a><li>';
+        echo '<li><a href="List_consultar_atenciones.php"></a>';
+        echo '<li><a href="Marcar_perdida_realizada_atencion.php">Adm. Atenciones</a><li>';
+    }if ($_SESSION["TipoUsuario"] == 4) {//Paciente
+        echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
+    }
+    if ($_SESSION["TipoUsuario"] == 5) {//Paciente
+        echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
+    }
+} else {
+    echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
+    echo '<li><a href="/Examen_dai/Frontend/Vistas/Paciente/RegistroPaciente.php">Registro</a></li>';
+}
+?>
 
                         </ul>
                     </div>
@@ -132,35 +124,35 @@
                                 <div class="wow fadeInRight" data-wow-delay="0.1s">
 
                                     <ul class="lead-list">
-                                       
-                                             <div class="row">
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Rut *</label>
-                                                        <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Nombre Completo</label>
-                                                        <input type="text" name="nombre" id="nombre" class="form-control input-md" data-rule="minlen:3" disabled="true" data-msg="Please enter at least 3 chars">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Tipo Usuario</label>
-                                                        <input type="text" name="tipoUser" id="fecha" class="form-control input-md" data-rule="minlen:3" disabled="true"  data-msg="Please enter at least 3 chars">
-                                                        <div class="validation"></div>
-                                                    </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label>Rut *</label>
+                                                    <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                    <div class="validation"></div>
                                                 </div>
                                             </div>
-                                           
+                                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label>Nombre Completo</label>
+                                                    <input type="text" name="nombre" id="nombre" class="form-control input-md" data-rule="minlen:3" disabled="true" data-msg="Please enter at least 3 chars">
+                                                    <div class="validation"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label>Tipo Usuario</label>
+                                                    <input type="text" name="tipoUser" id="fecha" class="form-control input-md" data-rule="minlen:3" disabled="true"  data-msg="Please enter at least 3 chars">
+                                                    <div class="validation"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="text-right wow bounceIn" data-wow-delay="0.4s">
+                                            <a href="/Examen_dai/Frontend/Vistas/Administrador/Usuarios.php"><input type="button" class="btn btn-skin btn-lg" value="Volver"><i class="fa fa-angle-right"></i></a>
+                                        </p>                         
+                                        <p class="lead-footer">* We'll contact you by phone & email later</p>
 
-                                   
-                                            <p class="lead-footer">* We'll contact you by phone & email later</p>
-                                   
                                     </ul>
                                 </div>
                             </div>
@@ -169,12 +161,12 @@
                 </div>
             </div>		
         </section>
-            
-            
-          
-            
-                    
-     
+
+
+
+
+
+
 
 
         <footer>
