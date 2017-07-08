@@ -138,21 +138,21 @@
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Rut *</label>
-                                                        <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="rut" id="rut"  class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Nombre Completo</label>
-                                                        <input type="text" name="nombre" id="nombre" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="nombre" disabled="true" id="nombre" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Fecha Nacimiento</label>
-                                                        <input type="date" name="fecha" id="fecha" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="date" name="fecha"  disabled="true" id="fecha" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
@@ -163,14 +163,14 @@
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Dirección</label>
-                                                        <input type="text" name="direccion" id="direccion" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
+                                                        <input type="text" name="direccion" disabled="true" id="direccion" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>N° Télefono</label>
-                                                        <input type="number" name="telefono" id="telefono" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
+                                                        <input type="number" name="telefono" disabled="true" id="telefono" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
@@ -178,7 +178,7 @@
                                            
 
                                     <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                        <a href="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php"><input type="button" class="btn btn-skin btn-lg" value="Volver  "><i class="fa fa-angle-right"></i> </a>
+                                       
                                         
                                     </p>
                                             <p class="lead-footer">* We'll contact you by phone & email later</p>

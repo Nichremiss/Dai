@@ -115,7 +115,7 @@
                                 <div class="wow fadeInRight" data-wow-delay="0.1s">
 
                                     <ul class="lead-list">
-                                        <form action="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php" method="POST" role="form" class="contactForm lead">
+                                        <form action="" method="POST" role="form" class="contactForm lead">
                                             <div class="row">
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
@@ -183,6 +183,9 @@
 
                                                 </p>
                                                 <p class="lead-footer">* We'll contact you by phone & email later</p>
+                                                                                              
+                                              
+
                                         </form>
                                     </ul>
                                 </div>
@@ -224,8 +227,8 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><input type="submit" name="confirmar" value="Confirmar"><input type="submit" name="anular" value="Anular"></td>
-                    <td><input type="hidden" name="txtRut" value=""></td>
+                    <td><input type="submit" name="confirmar" value="Confirmar"><input type="submit" style="margin-left: 10px;" name="anular" value="Anular"></td>
+                    <td><input style="margin-left: 10px;" type="hidden" name="txtRut" value=""></td>
 
 
                     </tbody> 
@@ -357,5 +360,4 @@
         <script src="../../js/custom.js"></script>
 
     </body>
-
 </html>
