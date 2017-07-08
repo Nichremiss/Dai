@@ -1,3 +1,35 @@
+<?php 
+session_start();
+
+
+include_once __DIR__."/../../../Backend/controller/MedicoController.php";
+
+$listadoMedicos = MedicoController::listarMedicos();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POS["rutEliminar"])) {
+        $eliminar = MedicoController::eliminarMedico($_POST["rutEliminar"]);
+        if ($eliminar) {
+            header("location: Medicos.php");
+            return;
+        }
+    }
+}
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if(isset($_POST["rut"]) && isset($_POST["nombre"]) && isset($_POST["fechaN"]) && isset($_POST["ddl_especialidad"])
+                && isset($_POST["valor"]) ){
+            
+                
+                    $agregarMedico = MedicoController::agregarMedico($_POST["rut"], $_POST["nombre"],
+                                                              $_POST["fechaN"],$_POST["ddl_especialidad"], $_POST["valor"]);
+                    if ($agregarMedico) {
+                        header("location: Medicos.php");
+                        return; 
+                    }
+                       
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +52,8 @@
         <link href="../../css/animate.css" rel="stylesheet" />
         <link href="../../css/style.css" rel="stylesheet">
         <link href="../../css/Tabla.css" rel="stylesheet">
-
+        <script src="../../Js/jquery-3.2.1.js"></script>
+        <script src="../../Js/medicos.js"></script>
         <!-- boxed bg -->
         <link id="bodybg" href="../../bodybg/bg1.css" rel="stylesheet" type="text/css" />
         <!-- template skin -->
@@ -61,27 +94,35 @@
                     <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                         <ul class="nav navbar-nav">
                             <?php
-                            if (isset($_SESSION["TipoUsuario"]) == 1) {//Director
+                            if (isset($_SESSION["usuario"])) {
+                                echo '<p><b>Usuario autenticado</b>: ' . $_SESSION["usuario"] . '</p>';
+                                echo '<li><a href="/Examen_dai/Frontend/logout.php">Cerrar Session</a></li>';
+                                 if ($_SESSION["TipoUsuario"] == 1) {//Director
                                 echo '<li><a href="ConsultarEstadisticas_Dir.php">Estadísticas</a><li>';
                                 echo '<li><a href="Listar_Consultas_Dir.php">Consultar</a><li>';
-                                echo '<li><a href="logout.php"> Cerrar Session</a><li>';
-                            }if (isset($_SESSION["TipoUsuario"]) == 2) {//Administrador
-                                echo '<li><a href="Listar_ consultar_contratar_despedir_medicos.php">Administrar médicos</a><li>';
-                                echo '<li><a href="Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
-                                echo '<li><a href="Listar_consulta_ registrar_eliminar_usuarios.php">Administrar Usuarios</a><li>';
-                                echo '<li><a href="logout.php"> Cerrar Session </a><li>';
-                            }if (isset($_SESSION["TipoUsuario"]) == 3) {//Secretaria
+                            }if ($_SESSION["TipoUsuario"] == 2) {//Administrador
+                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Medicos.php">Administrar médicos</a><li>';
+                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
+                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Usuarios.php">Administrar Usuarios</a><li>';
+                                
+                            }if ($_SESSION["TipoUsuario"] == 3){//Secretaria
                                 echo '<li><a href="Agendar_Confirmar_anular_atenciones.php">Adm. reservas</a><li>';
                                 echo '<li><a href="List_Consultar_Pacientes_Medicos.php">Consultas</a><li>';
                                 echo '<li><a href="List_consultar_atenciones.php"></a>';
                                 echo '<li><a href="Marcar_perdida_realizada_atencion.php">Adm. Atenciones</a><li>';
-                                echo '<li><a href="logout.php"> Cerrar Session </a><li>';
-                            }if (isset($_SESSION["TipoUsuario"]) == 4) {//Paciente
+                                
+                            }if ($_SESSION["TipoUsuario"] == 4) {//Paciente
                                 echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
-                                echo '<li><a href="logout.php"> Cerrar Session </a>';
-                            } else {
+                                
+                                }
+                                if ($_SESSION["TipoUsuario"] == 5) {//Paciente
+                                echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
+                                
+                                }
+                            }
+                            else {
                                 echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
-                                echo '<li><a href="../Paciente/RegistroPaciente.php">Registro</a></li>';
+                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Paciente/RegistroPaciente.php">Registro</a></li>';
                             }
                             ?>
 
@@ -111,26 +152,26 @@
                                 <div class="wow fadeInRight" data-wow-delay="0.1s">
 
                                     <ul class="lead-list">
-                                        <form action="" method="post" role="form" class="contactForm lead">
+                                        <form action="/Examen_dai/Frontend/Vistas/Administrador/pruebaeliminar.php" method="POST" role="form" class="contactForm lead">
                                             <div class="row">
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Rut</label>
-                                                        <input type="text" name="txtRut" id="txtRut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="rut" id="txtRut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Nombre Completo</label>
-                                                        <input type="text" name="txtNombre" id="txtNombre" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="nombre" id="txtNombre" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Fecha Contratación</label>
-                                                        <input type="date" name="txtFechaNac" id="txtFechaNac" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="date" name="fechaN" id="txtFechaNac" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
@@ -140,7 +181,7 @@
                                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                                     <div class="form-group">
                                                         <label>Especialidad</label>
-                                                        <select name="ddl_sexo" class="select2" data-allow-clear="true" data-placeholder="" id="ddl_sexo" style="display: block;
+                                                        <select name="ddl_especialidad" class="select2" data-allow-clear="true" data-placeholder="" id="ddl_sexo" style="display: block;
                                                                 width: 100%;
                                                                 height: 34px;
                                                                 padding: 6px 12px;
@@ -151,55 +192,22 @@
                                                                 background-image: none;
                                                                 border: 1px solid #ccc;
                                                                 border-radius: 4px;">
-                                                            <option></option>
-                                                            <optgroup label="Seleccione una opción">
-                                                                <option value="1">Medicina</option>
-                                                                <option value="2">Cardiologia</option>
-                                                                <option value="3">Ginecologia</option>
-                                                                <option value="4">Salud Mental</option>
-                                                                <option value="5">Pediatria</option>
-                                                                <option value="6">Otorrino</option>
-                                                                <option value="7">Oftalmologia</option>
-                                                                <option value="8">Neurologia</option>
-                                                                <option value="9">Gastronterologia</option>
-                                                                <option value="10">Dermatologia</option>
-                                                                <option value="11">Unidad De Tratamiento De Cefaleas</option>
-                                                                <option value="12">Kinesiologia</option>
-                                                                <option value="13">Urologia</option>
-                                                                <option value="14">Cirugia</option>
-                                                                <option value="15">Traumatologia</option>
-                                                                <option value="16">Enfermedades Respiratorias</option>
-                                                                <option value="17">Centro Oftalmologico</option>
-                                                            </optgroup>
+                                                            <option value=""> -- Eliga Especialidad -- </option>
+                                                            
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                                     <div class="form-group">
-                                                        <label>Valor Consulta ($</label>
-                                                        <input type="number" name="txtvalor" id="txtvalor" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
+                                                        <label>Valor Consulta ($)</label>
+                                                        <input type="text" name="valor" id="txtvalor" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Contraseña</label>
-                                                        <input type="password" name="txtPass" id="txtPass" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Repita Contraseña</label>
-                                                        <input type="password" name="txtPass2" id="txtPass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                             <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                                <a href="#" class="btn btn-skin btn-lg">Guardar<i class="fa fa-angle-right"></i></a>
+                                               <input type="submit" name="agregar" value="Agregar" class="btn btn-skin btn-lg">
                                             </p>
 
                                             <p class="lead-footer">* We'll contact you by phone & email later</p>
@@ -223,43 +231,51 @@
             <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.1s">
                 <h6 class="h-light">*Seleccionar para despedir</h6>
             </div>
-            <div class="datagrid">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>RUT</th>
-                            <th>Nombre</th>
-                            <th>Fecha Contratación</th>
-                            <th>Especialidad</th>
-                            <th>Acción</th>
-                        </tr>
+            <form action="/Examen_dai/Frontend/Vistas/Administrador/Medicos.php" method="POST">
 
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <td colspan="5">
-                                Listado de personas registradas
-                            </td>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <tr>
+                    <div class="datagrid">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>RUT</th>
+                                    <th>Nombre</th>
+                                    <th>Fecha Contratacion</th>
+                                    <th>Especialidad</th>
+                                    <th>Valor Consulta</th>
+                                    <th>Accion</th>
+                                </tr>
 
-                    <form action="" method="POST">
 
-                        <td>164180662</td>
-                        <td>Oscar Jara Díaz</td>
-                        <td>27/01/2000</td>
-                        <td>Pediatra</td>
-                        <td><input type="submit" value="Despedir" name="Eliminar"></td>   
-                        <td><input type="hidden" name="txtRut" value=""</td>
-                    </form>
-                    </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        Listado de Medicos registrados
+                                    </td>
+                                </tr>
+                            </tfoot>
+                            <?php
+                            foreach($listadoMedicos as $medicos) {
+                                /*@var $persona Persona */
+                             ?>
+                            <tbody>
+                                <td><?= $medicos->getMedicoRut() ?></td>
+                                <td><?= $medicos->getMedicoNombre() ?></td>
+                                <td><?= $medicos->getMedicoFechaContratacion() ?></td>
+                                <td><?= $medicos->getMedicoEspecialidad() ?></td>
+                                <td><?= $medicos->getMedicoConsulta()?></td>
 
-                    </tbody>
-                </table> 
-            </div>
-        </div>
+                                <td><input type="submit" value="Eliminar"></td>
+                                <td><input type="text" name="rutEliminar" value="<?= $medicos->getMedicoRut() ?>"></td>
+
+
+                            </tbody> 
+                        <?php 
+                            }
+                        ?>
+                    </table> 
+                    </div>  
+        </form>
 
 
         <footer>

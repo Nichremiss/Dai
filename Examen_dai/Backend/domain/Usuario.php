@@ -11,7 +11,7 @@
  *
  * @author Oskll
  */
-class Usuario {
+class Usuario implements JsonSerializable {
     private $usuarioRut;
     private $usuarioNombre;
     private $usuarioPassword;
@@ -53,7 +53,12 @@ class Usuario {
         $this->usuarioTipo = $usuarioTipo;
     }
 
-
-
+    public function jsonSerialize() {
+        $arregloAsociativo = Array("usuarioRut"=> $this->usuarioRut,
+                                    "usuarioNombre"=> $this->usuarioNombre,
+                                    "usuarioPassword"=> $this->usuarioPassword,
+                                    "usuarioTipo"=> $this->usuarioTipo);  
+        return $arregloAsociativo;
+    }
 
 }

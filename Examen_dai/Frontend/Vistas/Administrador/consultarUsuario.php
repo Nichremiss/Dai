@@ -1,3 +1,10 @@
+<?php
+   
+    session_start();
+
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,12 +27,18 @@
         <link href="../../css/animate.css" rel="stylesheet" />
         <link href="../../css/style.css" rel="stylesheet">
         <link href="../../css/Tabla.css" rel="stylesheet">
-
+        <script src="../../Js/jquery-3.2.1.js"></script>
+        <script src="../../Js/usuario.js"></script>
         <!-- boxed bg -->
         <link id="bodybg" href="../../bodybg/bg1.css" rel="stylesheet" type="text/css" />
         <!-- template skin -->
         <link id="t-colors" href="../../color/default.css" rel="stylesheet">
-
+        
+        <script>
+            function Mostrar(){
+                $("#buscar").removeAttr("hidden");
+            }   
+        </script>
        
     </head>
 
@@ -60,28 +73,36 @@
                     <!--Navegador con sesiones -->
                     <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                         <ul class="nav navbar-nav">
-                            <?php
-                            if (isset($_SESSION["TipoUsuario"]) == 1) {//Director
+                           <?php
+                            if (isset($_SESSION["usuario"])) {
+                                echo '<p><b>Usuario autenticado</b>: ' . $_SESSION["usuario"] . '</p>';
+                                echo '<li><a href="/Examen_dai/Frontend/logout.php">Cerrar Session</a></li>';
+                                 if ($_SESSION["TipoUsuario"] == 1) {//Director
                                 echo '<li><a href="ConsultarEstadisticas_Dir.php">Estadísticas</a><li>';
                                 echo '<li><a href="Listar_Consultas_Dir.php">Consultar</a><li>';
-                                echo '<li><a href="logout.php"> Cerrar Session</a><li>';
-                            }if (isset($_SESSION["TipoUsuario"]) == 2) {//Administrador
-                                echo '<li><a href="Listar_ consultar_contratar_despedir_medicos.php">Administrar médicos</a><li>';
-                                echo '<li><a href="Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
-                                echo '<li><a href="Listar_consulta_ registrar_eliminar_usuarios.php">Administrar Usuarios</a><li>';
-                                echo '<li><a href="logout.php"> Cerrar Session </a><li>';
-                            }if (isset($_SESSION["TipoUsuario"]) == 3) {//Secretaria
+                            }if ($_SESSION["TipoUsuario"] == 2) {//Administrador
+                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Medicos.php">Administrar médicos</a><li>';
+                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
+                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Usuarios.php">Administrar Usuarios</a><li>';
+                                
+                            }if ($_SESSION["TipoUsuario"] == 3){//Secretaria
                                 echo '<li><a href="Agendar_Confirmar_anular_atenciones.php">Adm. reservas</a><li>';
                                 echo '<li><a href="List_Consultar_Pacientes_Medicos.php">Consultas</a><li>';
                                 echo '<li><a href="List_consultar_atenciones.php"></a>';
                                 echo '<li><a href="Marcar_perdida_realizada_atencion.php">Adm. Atenciones</a><li>';
-                                echo '<li><a href="logout.php"> Cerrar Session </a><li>';
-                            }if (isset($_SESSION["TipoUsuario"]) == 4) {//Paciente
+                                
+                            }if ($_SESSION["TipoUsuario"] == 4) {//Paciente
                                 echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
-                                echo '<li><a href="logout.php"> Cerrar Session </a>';
-                            } else {
+                                
+                                }
+                                if ($_SESSION["TipoUsuario"] == 5) {//Paciente
+                                echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
+                                
+                                }
+                            }
+                            else {
                                 echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
-                                echo '<li><a href="../Paciente/RegistroPaciente.php">Registro</a></li>';
+                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Paciente/RegistroPaciente.php">Registro</a></li>';
                             }
                             ?>
 
@@ -102,7 +123,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
-                                <h2 class="h-ultra">Registro Usuario de Sistema</h2>
+                                <h2 class="h-ultra">Buscar Paciente</h2>
                             </div>
                             <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.1s">
                                 <h6 class="h-light">Campos Obligatorios *</h6>
@@ -111,65 +132,36 @@
                                 <div class="wow fadeInRight" data-wow-delay="0.1s">
 
                                     <ul class="lead-list">
-                                        <form action="" method="post" role="form" class="contactForm lead">
-                                            <div class="row">
+                                       
+                                             <div class="row">
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
-                                                        <label>Rut</label>
-                                                        <input type="text" name="txtRut" id="txtRut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <label>Rut *</label>
+                                                        <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
-                                                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Nombre Completo</label>
+                                                        <input type="text" name="nombre" id="nombre" class="form-control input-md" data-rule="minlen:3" disabled="true" data-msg="Please enter at least 3 chars">
+                                                        <div class="validation"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Tipo Usuario</label>
-                                                        <select name="ddl_Tipo_user" class="select2" data-allow-clear="true" data-placeholder="" id="ddl_Tipo_user" style="display: block;
-                                                                width: 100%;
-                                                                height: 34px;
-                                                                padding: 6px 12px;
-                                                                font-size: 14px;
-                                                                line-height: 1.42857143;
-                                                                color: #555;
-                                                                background-color: #fff;
-                                                                background-image: none;
-                                                                border: 1px solid #ccc;
-                                                                border-radius: 4px;">
-                                                            <option></option>
-                                                            <optgroup label="Seleccione una opción">
-                                                                <option value="1">Director</option>
-                                                                <option value="2">Administrador</option>
-                                                                <option value="3">Secretaria</option>
-                                                            </optgroup>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                             </div>
-                                            <div class="row">
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Contraseña</label>
-                                                        <input type="password" name="txtPass" id="txtPass" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Repita Contraseña</label>
-                                                        <input type="password" name="txtPass2" id="txtPass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="tipoUser" id="fecha" class="form-control input-md" data-rule="minlen:3" disabled="true"  data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                                <a href="#" class="btn btn-skin btn-lg">Guardar<i class="fa fa-angle-right"></i></a>
-                                            </p>
+                                           
 
+                                   
                                             <p class="lead-footer">* We'll contact you by phone & email later</p>
-
-                                        </form>
-
+                                   
                                     </ul>
-
                                 </div>
                             </div>
                         </div>				
@@ -177,47 +169,12 @@
                 </div>
             </div>		
         </section>
-        <div class="well well-trans">
-
-            <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
-                <h2 class="h-ultra">Lista de usuarios</h2>
-            </div>
-            <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.1s">
-                <h6 class="h-light">*Elminar Usuarios</h6>
-            </div>
-            <div class="datagrid">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>RUT</th>
-                            <th>Tipo Usuario</th>
-                            <th>Acción</th>
-                        </tr>
-                        
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <td colspan="5">
-                                Listado de usuarios registrados en sistema
-                            </td>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <tr>
-
-                    <form action="" method="POST">
-
-                        <td>164180662</td>
-                        <td>Secretaria</td>
-                        <td><input type="submit" value="eliminar" name="Eliminar"></td>   
-                        <td><input type="hidden" name="txtRut" value=""</td>
-                    </form>
-                    </tr>
-
-                    </tbody>
-                </table> 
-            </div>
-        </div>
+            
+            
+          
+            
+                    
+     
 
 
         <footer>
@@ -345,3 +302,4 @@
     </body>
 
 </html>
+

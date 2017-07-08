@@ -34,10 +34,30 @@ class PacienteController {
         return $daoPaciente->agregar($paciente);
     }
     
-    public static function existe($rut){
+    public static function existePaciente($rut){
         $conexion = ConexionDB::getConexion();
         $daoPaciente = new PacienteDAO($conexion);
         
         return $daoPaciente->existePaciente($rut);
+    }
+    
+     public static function listarPacientes(){
+        $conexion = ConexionDB::getConexion();
+        $daoPersona = new PacienteDAO($conexion);
+        
+        return $daoPersona->listarTodos();
+    }
+    public static function listarPorRut($rut){
+        $conexion = ConexionDB::getConexion();
+        $daoPersona = new PacienteDAO($conexion);
+        
+        return json_encode($daoPersona->listarPorRut($rut)->jsonSerialize());
+        
+    }
+    public static function eliminar($rut){
+        $conexion = ConexionDB::getConexion();
+        $daoPersona = new PacienteDAO($conexion);
+        
+        return $daoPersona->eliminar($rut);
     }
 }

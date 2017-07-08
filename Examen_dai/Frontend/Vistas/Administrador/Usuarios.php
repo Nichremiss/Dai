@@ -1,48 +1,42 @@
-<?php
-   
-    session_start();
-
-    include_once __DIR__."/../../../Backend/controller/PacienteController.php";
-     include_once __DIR__."/../../../Backend/controller/UsuarioController.php";
+<?php 
+session_start();
 
 
-            
-    $listadoPersona = PacienteController::listarPacientes();
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
+include_once __DIR__."/../../../Backend/controller/UsuarioController.php";
+include_once __DIR__."/../../../Backend/controller/PacienteController.php";
+
+$listadoUsuarios = UsuarioController::listarUsuario();
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
         if(isset($_POST["txtRut"])){
-            $exito = PacienteController::eliminar($_POST["txtRut"]);
-            $usuario = UsuarioController::eliminar($_POST["txtRut"]);
-            if($exito && $usuario){
-               header("location: Listar_consult_registrar_Eliminar_Pacientes.php");
-               return;
-           }
+            
+                $pacientee = PacienteController::eliminar($_POST["txtRut"]);
+                $usuario = UsuarioController::eliminar($_POST["txtRut"]);
+                if($pacientee && $usuario){
+                   header("location: Usuarios.php");
+                   return;
+                }
+            
+            
         }
     }
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        if(isset($_POST["nombre"]) && isset($_POST["fecha"]) && isset($_POST["ddl_sexo"])
-            && isset($_POST["direccion"]) && isset($_POST["telefono"])&& isset($_POST["pass"])&& isset($_POST["pass2"])){
-            
-            
-            
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    if(isset($_POST["rut"]) && isset($_POST["nombre"]) && isset($_POST["ddl_Tipo_user"]) && isset($_POST["pass"]) && isset($_POST["pass2"])){
+        
             $paciente = PacienteController::existePaciente($_POST["rut"]);
-            $usuarioExiste = UsuarioController::existeUsuario($_POST["rut"]);
-            
-             if ($paciente == null && $usuarioExiste == null) {
-                
-                $agregar = PacienteController::agregarPaciente($_POST["rut"], $_POST["nombre"],
-                                                         $_POST["fecha"], $_POST["ddl_sexo"],
-                                                         $_POST["direccion"], $_POST["telefono"], $_POST["pass"], $_POST["pass2"]);
-                
-                $user = UsuarioController::agregarUsuario($_POST["rut"], $_POST["nombre"],$_POST["pass"], $_POST["pass2"], 4);
-            
-            if($user && $agregar){
-               header("location: Listar_consult_registrar_Eliminar_Pacientes.php");
-               return;
-           }
-        }
+            $usuario = UsuarioController::existeUsuario($_POST["rut"]);
+            if ($paciente == null && $usuario == null) {
+                $user = UsuarioController::agregarUsuario($_POST["rut"], $_POST["nombre"],$_POST["pass"], $_POST["pass2"], $_POST["ddl_Tipo_user"]);
+                if ( $user) {
+                    
+                    header("location: Usuarios.php");
+                    return;
+                }
+            }
     }
             
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -67,17 +61,13 @@
         <link href="../../css/animate.css" rel="stylesheet" />
         <link href="../../css/style.css" rel="stylesheet">
         <link href="../../css/Tabla.css" rel="stylesheet">
-
+        <script src="../../Js/jquery-3.2.1.js"></script>
+        <script src="../../Js/usuario.js"></script>
         <!-- boxed bg -->
         <link id="bodybg" href="../../bodybg/bg1.css" rel="stylesheet" type="text/css" />
         <!-- template skin -->
         <link id="t-colors" href="../../color/default.css" rel="stylesheet">
-        <script src="Js/jquery-3.2.1.js"></script>
-        <script>
-            function Mostrar(){
-                $("#buscar").removeAttr("hidden");
-            }   
-        </script>
+
        
     </head>
 
@@ -112,7 +102,7 @@
                     <!--Navegador con sesiones -->
                     <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                         <ul class="nav navbar-nav">
-                            <?php
+                           <?php
                             if (isset($_SESSION["usuario"])) {
                                 echo '<p><b>Usuario autenticado</b>: ' . $_SESSION["usuario"] . '</p>';
                                 echo '<li><a href="/Examen_dai/Frontend/logout.php">Cerrar Session</a></li>';
@@ -134,7 +124,10 @@
                                 echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
                                 
                                 }
+                                if ($_SESSION["TipoUsuario"] == 5) {//Paciente
+                                echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
                                 
+                                }
                             }
                             else {
                                 echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
@@ -159,7 +152,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
-                                <h2 class="h-ultra">Registro Paciente</h2>
+                                <h2 class="h-ultra">Registro Usuario de Sistema</h2>
                             </div>
                             <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.1s">
                                 <h6 class="h-light">Campos Obligatorios *</h6>
@@ -168,36 +161,26 @@
                                 <div class="wow fadeInRight" data-wow-delay="0.1s">
 
                                     <ul class="lead-list">
-                                        <form action="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php" method="POST" role="form" class="contactForm lead">
-                                             <div class="row">
+                                        <form action="/Examen_dai/Frontend/Vistas/Administrador/Usuarios.php" method="POST" role="form" class="contactForm lead">
+                                            <div class="row">
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Rut</label>
-                                                        <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="rut" id="txtRut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Nombre Completo</label>
-                                                        <input type="text" name="nombre" id="nombre" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="nombre" id="txtRut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                                                <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
-                                                        <label>Fecha Nacimiento</label>
-                                                        <input type="date" name="fecha" id="fecha" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Sexo</label>
-                                                        <select name="ddl_sexo" class="select2" data-allow-clear="true" data-placeholder="" id="ddl_sexo" style="display: block;
+                                                        <label>Tipo Usuario</label>
+                                                        <select name="ddl_Tipo_user" class="select2" data-allow-clear="true" data-placeholder="" id="ddl_Tipo_user" style="display: block;
                                                                 width: 100%;
                                                                 height: 34px;
                                                                 padding: 6px 12px;
@@ -208,54 +191,39 @@
                                                                 background-image: none;
                                                                 border: 1px solid #ccc;
                                                                 border-radius: 4px;">
-                                                            <option></option>
-                                                            <optgroup label="Seleccione una opción">
-                                                                <option value="F">Femenino</option>
-                                                                <option value="M">Masculino</option>
-                                                            </optgroup>
+                                                            <option value=""> -- Seleccione una opción --</option>
+                                                           
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Dirección</label>
-                                                        <input type="text" name="direccion" id="direccion" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>N° Télefono</label>
-                                                        <input type="number" name="telefono" id="telefono" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Contraseña</label>
-                                                        <input type="password" name="pass" id="pass" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="password" name="pass" id="txtPass" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Repita Contraseña</label>
-                                                        <input type="password" name="pass2" id="pass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="password" name="pass2" id="txtPass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <p class="text-right wow bounceIn" data-wow-delay="0.4s">
+                                                <a href="/Examen_dai/Frontend/Vistas/Administrador/consultarUsuario.php"><input type="button" class="btn btn-skin btn-lg" value="Buscar Usuario"><i class="fa fa-angle-right"></i></a>
+                                                <input type="submit" name="agregar" value="Agregar" class="btn btn-skin btn-lg">
+                                            </p>
 
-                                    <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                        <a href="/Examen_dai/Frontend/Vistas/Administrador/consultarPaciente.php"><input type="button" class="btn btn-skin btn-lg" value="Buscar Paciente"><i class="fa fa-angle-right"></i></a>
-                                        <input type="submit" class="btn btn-skin btn-lg" value="Guardar"><i class="fa fa-angle-right"></i>
-                                        
-                                    </p>
                                             <p class="lead-footer">* We'll contact you by phone & email later</p>
-                                    </form>
+
+                                        </form>
+
                                     </ul>
+
                                 </div>
                             </div>
                         </div>				
@@ -263,53 +231,57 @@
                 </div>
             </div>		
         </section>
-       
-        <form action="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php" method="POST">
+        <div class="well well-trans">
 
             <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
-                <h2 class="h-ultra">Lista de Pacientes</h2>
+                <h2 class="h-ultra">Lista de usuarios</h2>
             </div>
             
-            <div class="datagrid">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>RUT</th>
-                            <th>Nombre</th>
-                            <th>Fecha Nacimiento</th>
-                            <th>Telefono Paciente</th>
-                            <th>Acción</th>
-                        </tr>
+            
+            <form action="/Examen_dai/Frontend/Vistas/Administrador/Usuarios.php" method="POST">
 
-                        
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <td colspan="5">
-                                Listado de personas registradas
-                            </td>
-                        </tr>
-                    </tfoot>
-                    <?php
-                    foreach($listadoPersona as $paciente) {
-                        /*@var $persona Persona */
-                ?>
-                    <tbody>
-                        <td><?= $paciente->getPacienteRut() ?></td>
-                        <td><?= $paciente->getPacienteNombreCompleto() ?></td>
-                        <td><?= $paciente->getPacienteFechaNacimiento() ?></td>
-                        <td><?= $paciente->getPacienteTelefono()?></td>
-                        <td><input type="submit" name="eliminar" value="Eliminar"></td>
-                        <td><input type="hidden" name="txtRut" value="<?= $paciente->getPacienteRut()?>"></td>
-                
-               
-                    </tbody> 
-                <?php 
-                    }
-                ?>
-            </table> 
-            </div>  
+                    <div class="datagrid">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>RUT</th>
+                                    <th>Nombre</th>
+                                    <th>Tipo Usuario</th>
+                                    <th>Accion</th>
+                                </tr>
+
+
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        Listado de Usuarios registrados
+                                    </td>
+                                </tr>
+                            </tfoot>
+                            <?php
+                            foreach($listadoUsuarios as $usuarios) {
+                                /*@var $persona Persona */
+                             ?>
+                            <tbody>
+                                <td><?= $usuarios->getUsuarioRut() ?></td>
+                                <td><?= $usuarios->getUsuarioNombre() ?></td>
+                                <td><?= $usuarios->getUsuarioTipo() ?></td>
+                                
+                                <td><input type="submit" value="Eliminar"></td>
+                                <td><input type="hidden" name="txtRut" value="<?= $usuarios->getUsuarioRut() ?>"></td>
+                                <TD><input type="hidden" name="txtpass" value="<?= $usuarios->getUsuarioPassword() ?>"></TD>
+
+
+                            </tbody> 
+                        <?php 
+                            }
+                        ?>
+                    </table> 
+                    </div>  
         </form>
+                    
+
 
         <footer>
             <div class="container">

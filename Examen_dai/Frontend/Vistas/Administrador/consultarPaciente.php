@@ -2,47 +2,7 @@
    
     session_start();
 
-    include_once __DIR__."/../../../Backend/controller/PacienteController.php";
-     include_once __DIR__."/../../../Backend/controller/UsuarioController.php";
-
-
-            
-    $listadoPersona = PacienteController::listarPacientes();
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        if(isset($_POST["txtRut"])){
-            $exito = PacienteController::eliminar($_POST["txtRut"]);
-            $usuario = UsuarioController::eliminar($_POST["txtRut"]);
-            if($exito && $usuario){
-               header("location: Listar_consult_registrar_Eliminar_Pacientes.php");
-               return;
-           }
-        }
-    }
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        if(isset($_POST["nombre"]) && isset($_POST["fecha"]) && isset($_POST["ddl_sexo"])
-            && isset($_POST["direccion"]) && isset($_POST["telefono"])&& isset($_POST["pass"])&& isset($_POST["pass2"])){
-            
-            
-            
-            $paciente = PacienteController::existePaciente($_POST["rut"]);
-            $usuarioExiste = UsuarioController::existeUsuario($_POST["rut"]);
-            
-             if ($paciente == null && $usuarioExiste == null) {
-                
-                $agregar = PacienteController::agregarPaciente($_POST["rut"], $_POST["nombre"],
-                                                         $_POST["fecha"], $_POST["ddl_sexo"],
-                                                         $_POST["direccion"], $_POST["telefono"], $_POST["pass"], $_POST["pass2"]);
-                
-                $user = UsuarioController::agregarUsuario($_POST["rut"], $_POST["nombre"],$_POST["pass"], $_POST["pass2"], 4);
-            
-            if($user && $agregar){
-               header("location: Listar_consult_registrar_Eliminar_Pacientes.php");
-               return;
-           }
-        }
-    }
-            
-}
+    
 ?>
 
 <!DOCTYPE html>
@@ -67,12 +27,14 @@
         <link href="../../css/animate.css" rel="stylesheet" />
         <link href="../../css/style.css" rel="stylesheet">
         <link href="../../css/Tabla.css" rel="stylesheet">
-
+        <script src="../../Js/jquery-3.2.1.js"></script>
+        <script src="../../Js/pacientes.js"></script>
+        
         <!-- boxed bg -->
         <link id="bodybg" href="../../bodybg/bg1.css" rel="stylesheet" type="text/css" />
         <!-- template skin -->
         <link id="t-colors" href="../../color/default.css" rel="stylesheet">
-        <script src="Js/jquery-3.2.1.js"></script>
+        
         <script>
             function Mostrar(){
                 $("#buscar").removeAttr("hidden");
@@ -112,7 +74,7 @@
                     <!--Navegador con sesiones -->
                     <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                         <ul class="nav navbar-nav">
-                            <?php
+                           <?php
                             if (isset($_SESSION["usuario"])) {
                                 echo '<p><b>Usuario autenticado</b>: ' . $_SESSION["usuario"] . '</p>';
                                 echo '<li><a href="/Examen_dai/Frontend/logout.php">Cerrar Session</a></li>';
@@ -134,7 +96,10 @@
                                 echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
                                 
                                 }
+                                if ($_SESSION["TipoUsuario"] == 5) {//Paciente
+                                echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
                                 
+                                }
                             }
                             else {
                                 echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
@@ -159,7 +124,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
-                                <h2 class="h-ultra">Registro Paciente</h2>
+                                <h2 class="h-ultra">Buscar Paciente</h2>
                             </div>
                             <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.1s">
                                 <h6 class="h-light">Campos Obligatorios *</h6>
@@ -168,11 +133,11 @@
                                 <div class="wow fadeInRight" data-wow-delay="0.1s">
 
                                     <ul class="lead-list">
-                                        <form action="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php" method="POST" role="form" class="contactForm lead">
+                                       
                                              <div class="row">
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
-                                                        <label>Rut</label>
+                                                        <label>Rut *</label>
                                                         <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                         <div class="validation"></div>
                                                     </div>
@@ -194,28 +159,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Sexo</label>
-                                                        <select name="ddl_sexo" class="select2" data-allow-clear="true" data-placeholder="" id="ddl_sexo" style="display: block;
-                                                                width: 100%;
-                                                                height: 34px;
-                                                                padding: 6px 12px;
-                                                                font-size: 14px;
-                                                                line-height: 1.42857143;
-                                                                color: #555;
-                                                                background-color: #fff;
-                                                                background-image: none;
-                                                                border: 1px solid #ccc;
-                                                                border-radius: 4px;">
-                                                            <option></option>
-                                                            <optgroup label="Seleccione una opción">
-                                                                <option value="F">Femenino</option>
-                                                                <option value="M">Masculino</option>
-                                                            </optgroup>
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                               
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Dirección</label>
@@ -231,30 +175,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Contraseña</label>
-                                                        <input type="password" name="pass" id="pass" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Repita Contraseña</label>
-                                                        <input type="password" name="pass2" id="pass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
-                                                        <div class="validation"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                           
 
                                     <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                        <a href="/Examen_dai/Frontend/Vistas/Administrador/consultarPaciente.php"><input type="button" class="btn btn-skin btn-lg" value="Buscar Paciente"><i class="fa fa-angle-right"></i></a>
-                                        <input type="submit" class="btn btn-skin btn-lg" value="Guardar"><i class="fa fa-angle-right"></i>
+                                        <a href="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php"><input type="button" class="btn btn-skin btn-lg" value="Volver  "><i class="fa fa-angle-right"></i> </a>
                                         
                                     </p>
                                             <p class="lead-footer">* We'll contact you by phone & email later</p>
-                                    </form>
+                                   
                                     </ul>
                                 </div>
                             </div>
@@ -263,53 +191,13 @@
                 </div>
             </div>		
         </section>
-       
-        <form action="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php" method="POST">
-
-            <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
-                <h2 class="h-ultra">Lista de Pacientes</h2>
-            </div>
             
-            <div class="datagrid">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>RUT</th>
-                            <th>Nombre</th>
-                            <th>Fecha Nacimiento</th>
-                            <th>Telefono Paciente</th>
-                            <th>Acción</th>
-                        </tr>
+            
+          
+            
+                    
+     
 
-                        
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <td colspan="5">
-                                Listado de personas registradas
-                            </td>
-                        </tr>
-                    </tfoot>
-                    <?php
-                    foreach($listadoPersona as $paciente) {
-                        /*@var $persona Persona */
-                ?>
-                    <tbody>
-                        <td><?= $paciente->getPacienteRut() ?></td>
-                        <td><?= $paciente->getPacienteNombreCompleto() ?></td>
-                        <td><?= $paciente->getPacienteFechaNacimiento() ?></td>
-                        <td><?= $paciente->getPacienteTelefono()?></td>
-                        <td><input type="submit" name="eliminar" value="Eliminar"></td>
-                        <td><input type="hidden" name="txtRut" value="<?= $paciente->getPacienteRut()?>"></td>
-                
-               
-                    </tbody> 
-                <?php 
-                    }
-                ?>
-            </table> 
-            </div>  
-        </form>
 
         <footer>
             <div class="container">
@@ -436,3 +324,4 @@
     </body>
 
 </html>
+

@@ -109,8 +109,7 @@ class ConexionDB {
 	(1,'Director'),
 	(2,'Administrador'),
 	(3,'Secretaria'),
-	(4,'Medico'),
-	(5,'Paciente');");
+	(4,'Paciente');");
             
             $mysqlConexion->exec("
     CREATE TABLE IF NOT EXISTS `usuario` (
@@ -123,15 +122,6 @@ class ConexionDB {
     INSERT INTO `usuario`(`USUARIO_RUT`, `USUARIO_NOMBRE`, `USUARIO_PASSWORD`, `USUARIO_TIPO_USER`) VALUES
 
 	('195075476','Oscar Andres Jara Diaz','123456',2);");
-            $mysqlConexion->exec("
-    CREATE TABLE IF NOT EXISTS `administrativos` (
-		`ADMINISTRATIVO_RUT` varchar(13) DEFAULT NULL,
-		`ADMINISTRATIVO_NOMBRE` varchar(50) DEFAULT NULL,
-		`ADMINISTRATIVO_APELLIDO` varchar(50) DEFAULT NULL,
-		`ADMINISTRATIVO_EMAIL` varchar(100) DEFAULT NULL,
-		`ADMINISTRATIVO_ID_USUARIO` int(100) NOT NULL DEFAULT '0',
-		`ADMINISTRATIVO_PASSWORD` varchar(250) DEFAULT NULL
-		)ENGINE=InnoDB DEFAULT CHARSET=utf8");
             
             $mysqlConexion->exec("
     CREATE TABLE IF NOT EXISTS `paciente` (
@@ -150,8 +140,7 @@ class ConexionDB {
 	`MEDICO_NOMBRE_COMPLETO` varchar(250) DEFAULT NULL,
 	`MEDICO_FECHA_CONTRATACION` date DEFAULT NULL, 
 	`MEDICO_ESPECIALIDAD_ID` int(100) NOT NULL DEFAULT '0',
-	`MEDICO_CONSULTA` bigint NOT NULL DEFAULT '0',
-        `MEDICO_PASSWORD` varchar(255) DEFAULT NULL
+	`MEDICO_CONSULTA` bigint NOT NULL DEFAULT '0'
 	 )ENGINE=InnoDB DEFAULT CHARSET=utf8");
 
             $mysqlConexion->exec("

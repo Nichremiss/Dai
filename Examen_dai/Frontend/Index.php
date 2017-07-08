@@ -91,30 +91,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             if (isset($_SESSION["usuario"])) {
                                 echo '<p><b>Usuario autenticado</b>: ' . $_SESSION["usuario"] . '</p>';
                                 echo '<li><a href="/Examen_dai/Frontend/logout.php">Cerrar Session</a></li>';
-                            }
-                            if (isset($_SESSION["TipoUsuario"]) == 1) {//Director
+                                 if ($_SESSION["TipoUsuario"] == 1) {//Director
                                 echo '<li><a href="ConsultarEstadisticas_Dir.php">Estadísticas</a><li>';
                                 echo '<li><a href="Listar_Consultas_Dir.php">Consultar</a><li>';
-                                echo '<li><a href="logout.php"> Cerrar Session</a><li>';
-                            }if (isset($_SESSION["TipoUsuario"]) == 2) {//Administrador
-                                echo '<li><a href="Listar_ consultar_contratar_despedir_medicos.php">Administrar médicos</a><li>';
-                                echo '<li><a href="Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
-                                echo '<li><a href="Listar_consulta_ registrar_eliminar_usuarios.php">Administrar Usuarios</a><li>';
-                                echo '<li><a href="logout.php"> Cerrar Session </a><li>';
-                            }if (isset($_SESSION["TipoUsuario"]) == 3) {//Secretaria
+                            }if ($_SESSION["TipoUsuario"] == 2) {//Administrador
+                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Medicos.php">Administrar médicos</a><li>';
+                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
+                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Usuarios.php">Administrar Usuarios</a><li>';
+                                
+                            }if ($_SESSION["TipoUsuario"] == 3){//Secretaria
                                 echo '<li><a href="Agendar_Confirmar_anular_atenciones.php">Adm. reservas</a><li>';
                                 echo '<li><a href="List_Consultar_Pacientes_Medicos.php">Consultas</a><li>';
                                 echo '<li><a href="List_consultar_atenciones.php"></a>';
                                 echo '<li><a href="Marcar_perdida_realizada_atencion.php">Adm. Atenciones</a><li>';
-                                echo '<li><a href="logout.php"> Cerrar Session </a><li>';
-                            }if (isset($_SESSION["TipoUsuario"]) == 4) {//Paciente
+                                
+                            }if ($_SESSION["TipoUsuario"] == 4) {//Paciente
                                 echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
-                                echo '<li><a href="logout.php"> Cerrar Session </a>';
-                            } else {
+                                
+                                }
+                                if ($_SESSION["TipoUsuario"] == 5) {//Paciente
+                                echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
+                                
+                                }
+                            }
+                            else {
                                 echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
                                 echo '<li><a href="/Examen_dai/Frontend/Vistas/Paciente/RegistroPaciente.php">Registro</a></li>';
                             }
                             ?>
+
                         </ul>
                     </div>
                 </div> 
@@ -312,7 +317,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     </div>
                                                 </div>
                                             </div>    
-
+                                        <div class="modal-footer">
+                                            <input type="submit" value="Ingresar" class="btn btn-skin btn-block btn-lg">
+                                            <p class="lead-footer">* Si tiene inconveniente,comuniquese con la administracion</p>
+                                        </div>  
                                         </form>
                                     </div>
                                 </div>				
@@ -320,10 +328,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                         </div>
                     </div>				
-                    <div class="modal-footer">
-                        <input type="submit" value="Ingresar" class="btn btn-skin btn-block btn-lg">
-                        <p class="lead-footer">* Si tiene inconveniente,comuniquese con la administracion</p>
-                    </div>  
+                    
                 </div>
 
             </div>

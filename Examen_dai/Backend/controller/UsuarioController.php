@@ -48,4 +48,46 @@ class UsuarioController {
         }
         return false;
     }
+    public static function eliminar($rut){
+        $conexion = ConexionDB::getConexion();
+        $daoPersona = new UsuarioDAO($conexion);
+        
+        return $daoPersona->eliminar($rut);
+    }
+    
+    public static function existeUsuario($rut){
+        $conexion = ConexionDB::getConexion();
+        $daoPaciente = new UsuarioDAO($conexion);
+        
+        return $daoPaciente->existeUsuario($rut);
+    }
+    
+    public static function listarTipoUsuario(){
+        $conexion = ConexionDB::getConexion();
+        $daoUsuario = new UsuarioDAO($conexion);
+
+        return json_encode($daoUsuario->listarTipoUsuario());
+    }
+    
+      public static function listarUsuario(){
+        $conexion = ConexionDB::getConexion();
+        $daoUsuario = new UsuarioDAO($conexion);
+        
+        return $daoUsuario->listarTodos();
+    }
+    
+    public static function listarPorRut($rut){
+        $conexion = ConexionDB::getConexion();
+        $daoUsuario = new UsuarioDAO($conexion);
+        
+        return json_encode($daoUsuario->listarPorRut($rut)->jsonSerialize());
+        
+    }
+    
+    public static function listarPorTipo($id){
+        $conexion = ConexionDB::getConexion();
+        $daoUsuario = new UsuarioDAO($conexion);
+        
+        return json_encode($daoUsuario->buscarTipo($id));
+    }
 }

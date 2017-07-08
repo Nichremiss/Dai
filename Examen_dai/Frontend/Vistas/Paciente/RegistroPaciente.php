@@ -10,15 +10,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST["rut"]) && isset($_POST["nombre"]) && isset($_POST["fecha"]) && isset($_POST["ddl_sexo"])
             && isset($_POST["direccion"]) && isset($_POST["telefono"])&& isset($_POST["pass"])&& isset($_POST["pass2"])){
         
-            $paciente = PacienteController::existe($_POST["rut"]);
-            
-            if ($paciente == null) {
+            $paciente = PacienteController::existePaciente($_POST["rut"]);
+            $usuario = UsuarioController::existeUsuario($_POST["rut"]);
+            if ($paciente == null && $usuario == null) {
                 
                 $exito = PacienteController::agregarPaciente($_POST["rut"], $_POST["nombre"],
                                                          $_POST["fecha"], $_POST["ddl_sexo"],
                                                          $_POST["direccion"], $_POST["telefono"], $_POST["pass"], $_POST["pass2"]);
                 
-                $user = UsuarioController::agregarUsuario($_POST["rut"], $_POST["nombre"],$_POST["pass"], $_POST["pass2"], 5);
+                $user = UsuarioController::agregarUsuario($_POST["rut"], $_POST["nombre"],$_POST["pass"], $_POST["pass2"], 4);
                 if ($exito && $user) {
                     
                     header("location: ../../index.php");

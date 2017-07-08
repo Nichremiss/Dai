@@ -48,16 +48,65 @@ class PacienteDAO implements GenericDAO{
         return $sentencia->execute();
     }
 
-    public function eliminar($idRegistro) {
+    public function eliminar($rut) {
+         $query = "DELETE  FROM paciente WHERE PACIENTE_RUT = :rut";
         
+        $sentencia = $this->conexion->prepare($query);
+        
+        $sentencia->bindParam(':rut',$rut);
+        
+        return $sentencia->execute();
     }
-
-    public function listarTodos() {
+    public function listarPorRut($rut){
+        $query = "SELECT * FROM paciente WHERE PACIENTE_RUT = :rut";
+        $registro = $this->conexion->prepare($query);
         
+         $registro->bindParam(':rut',$rut);
+         
+        $registro->execute();
+        
+        if($registro != null) {
+            foreach($registro as $fila) {
+                $paciente = new Paciente();
+                $paciente->setPacienteRut($fila["PACIENTE_RUT"]);
+                $paciente->setPacienteNombreCompleto($fila["PACIENTE_NOMBRE_COMPLETO"]);
+                $paciente->setPacienteFechaNacimiento($fila["PACIENTE_FECHA_NACIMIENTO"]);
+                $paciente->setPacienteSexo($fila["PACIENTE_SEXO"]);
+                $paciente->setPacienteDomicilio($fila["PACIENTE_DIRECCION"]);
+                $paciente->setPacienteTelefono($fila["PACIENTE_TELEFONO"]);
+                $paciente->setPacientePassword($fila["PACIENTE_PASSWORD"]);
+             }
+        }
+        return $paciente;
+    }
+    public function listarTodos() {
+        $listado = array();
+        
+        $registros = $this->conexion->query("SELECT * FROM paciente ");
+        
+        $registros->execute();
+        if($registros != null) {
+            foreach($registros as $fila) {
+                $paciente = new Paciente();
+                $paciente->setPacienteRut($fila["PACIENTE_RUT"]);
+                $paciente->setPacienteNombreCompleto($fila["PACIENTE_NOMBRE_COMPLETO"]);
+                $paciente->setPacienteFechaNacimiento($fila["PACIENTE_FECHA_NACIMIENTO"]);
+                $paciente->setPacienteSexo($fila["PACIENTE_SEXO"]);
+                $paciente->setPacienteDomicilio($fila["PACIENTE_DIRECCION"]);
+                $paciente->setPacienteTelefono($fila["PACIENTE_TELEFONO"]);
+                $paciente->setPacientePassword($fila["PACIENTE_PASSWORD"]);
+               
+
+                array_push($listado, $paciente);
+                
+
+            }
+        }
+        
+        return $listado;
     }
 
     public function existePaciente($rut){
-        $listado = array();
         $query = "SELECT * FROM paciente WHERE PACIENTE_RUT = :rut";
         
         $sentencia = $this->conexion->prepare($query);
@@ -76,12 +125,10 @@ class PacienteDAO implements GenericDAO{
                 $paciente->setPacienteDomicilio($fila["PACIENTE_DIRECCION"]);
                 $paciente->setPacienteTelefono($fila["PACIENTE_TELEFONO"]);
                 $paciente->setPacientePassword($fila["PACIENTE_PASSWORD"]);
-               
-
-                array_push($listado, $paciente);
+              
             }
         }
-        return $listado;
+        return $paciente;
     }
     public function modificar($registro) {
         
