@@ -126,14 +126,14 @@
                                             <div class="datagrid">
                                                 <table>
                                                     <thead>
-                                                        
-                                                              <tr>
-                            <th>RUT</th>
-                            <th>Nombre</th>
-                            <th>Fecha Nacimiento</th>
-                            <th>Telefono Paciente</th>
-                            <th>Acción</th>
-                                              
+
+                                                        <tr>
+                                                            <th>RUT</th>
+                                                            <th>Nombre</th>
+                                                            <th>Fecha Nacimiento</th>
+                                                            <th>Telefono Paciente</th>
+                                                            <th>Acción</th>
+
                                                         </tr>
                                                     </thead>
                                                     <tfoot>
@@ -149,16 +149,15 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                   
                                                     </tbody> 
 
                                                 </table> 
                                             </div>  
                                         </form>
-                                    <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                        <a href="/Examen_dai/Frontend/Vistas/Administrador/consultarPaciente.php"><input type="button" class="btn btn-skin btn-lg" value="Buscar Paciente"><i class="fa fa-angle-right"></i></a>
-                                                                           
-                                    </p>
+                                        <p class="text-right wow bounceIn" data-wow-delay="0.4s">
+                                            <a href="/Examen_dai/Frontend/Vistas/Administrador/consultarPaciente.php"><input type="button" class="btn btn-skin btn-lg" value="Buscar Paciente"><i class="fa fa-angle-right"></i></a>
+
+                                        </p>
                                         <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
                                             <h5 class="h-ultra">Busqueda Medico</h5>
                                         </div>
@@ -201,7 +200,7 @@
                                                             <th>Médico</th>
                                                             <th>Especialidad</th>
                                                             <th>Estado Atención</th>
-                                                           
+
                                                         </tr>
                                                     </thead>
                                                     <tfoot>
@@ -217,16 +216,16 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                   
+
                                                     </tbody> 
 
                                                 </table> 
                                             </div>  
                                         </form>
-                                        
-                                        
+
+
                                         <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                          
+
 
                                         </p>
                                         <p class="lead-footer">* We'll contact you by phone & email later</p>

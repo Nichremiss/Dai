@@ -14,11 +14,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
 if($_SERVER["REQUEST_METHOD"] == "POST") {
+echo "No incluyo el campo nombre"; 
+    echo "<script type=\"text/javascript\">alert(\"Fotos guardadas\");</script>";  
+
         if(isset($_POST["rut"]) && isset($_POST["nombre"]) && isset($_POST["fechaN"]) && isset($_POST["ddl_especialidad"])
                 && isset($_POST["valor"]) ){
-            
-                
+            echo "<script type=\"text/javascript\">alert(\"ppprrr\");</script>";  
+
+            echo "paso a guardar"; 
                     $agregarMedico = MedicoController::agregarMedico($_POST["rut"], $_POST["nombre"],
                                                               $_POST["fechaN"],$_POST["ddl_especialidad"], $_POST["valor"]);
                     if ($agregarMedico) {
@@ -28,7 +33,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                        
         }
     }
+
 ?>
+ 
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -157,21 +165,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Rut</label>
-                                                        <input type="text" name="rut" id="txtRut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="rut" id="name" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Nombre Completo</label>
-                                                        <input type="text" name="nombre" id="txtNombre" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="nombre" id="txtNombre" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Fecha Contratación</label>
-                                                        <input type="date" name="fechaN" id="txtFechaNac" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="date" name="fechaN" id="txtFechaNac" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
@@ -191,7 +199,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                                 background-color: #fff;
                                                                 background-image: none;
                                                                 border: 1px solid #ccc;
-                                                                border-radius: 4px;">
+                                                                border-radius: 4px;" required>
                                                             <option value=""> -- Eliga Especialidad -- </option>
                                                             
                                                         </select>
@@ -200,14 +208,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                                     <div class="form-group">
                                                         <label>Valor Consulta ($)</label>
-                                                        <input type="text" name="valor" id="txtvalor" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
+                                                        <input type="text" name="valor" id="txtvalor" class="form-control input-md" data-rule="required" data-msg="The phone number is required" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                             
                                             <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                               <input type="submit" name="agregar" value="Agregar" class="btn btn-skin btn-lg">
+                                                <input type="submit" name="agregar" onclick="hola()"value="Agregar" class="btn btn-skin btn-lg">
                                             </p>
 
                                             <p class="lead-footer">* We'll contact you by phone & email later</p>

@@ -130,7 +130,7 @@
                                                                 background-color: #fff;
                                                                 background-image: none;
                                                                 border: 1px solid #ccc;
-                                                                border-radius: 4px;">
+                                                                border-radius: 4px;" required>
                                                             <option></option>
                                                             <optgroup label="Seleccione una opción">
                                                                 <option value="">Listar medicos Contratados</option>
@@ -152,7 +152,7 @@
                                                                 background-color: #fff;
                                                                 background-image: none;
                                                                 border: 1px solid #ccc;
-                                                                border-radius: 4px;">
+                                                                border-radius: 4px;" required>
                                                             <option></option>
                                                             <optgroup label="Seleccione una opción">
                                                                 <option value="">Listar Pacientes inscritos</option>
@@ -164,7 +164,7 @@
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Fecha Atención</label>
-                                                        <input type="date" name="fecha" id="fecha" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="date" name="fecha" id="fecha" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
@@ -174,10 +174,11 @@
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Hora</label>
-                                                        <input type="text" name="txtHora" id="txtHora" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
+                                                        <input type="text" name="txtHora" id="txtHora" class="form-control input-md" data-rule="required" data-msg="The phone number is required" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
+                                           </div>
                                                 <p class="text-right wow bounceIn" data-wow-delay="0.4s">
                                                     <input type="submit" class="btn btn-skin btn-lg" value="Guardar"><i class="fa fa-angle-right"></i>
 

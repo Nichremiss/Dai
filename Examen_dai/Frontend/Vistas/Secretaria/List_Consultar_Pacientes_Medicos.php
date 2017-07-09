@@ -126,14 +126,14 @@
                                             <div class="datagrid">
                                                 <table>
                                                     <thead>
-                                                        
-                                                              <tr>
-                            <th>RUT</th>
-                            <th>Nombre</th>
-                            <th>Fecha Nacimiento</th>
-                            <th>Telefono Paciente</th>
-                            <th>Acción</th>
-                                              
+
+                                                        <tr>
+                                                            <th>RUT</th>
+                                                            <th>Nombre</th>
+                                                            <th>Fecha Nacimiento</th>
+                                                            <th>Telefono Paciente</th>
+                                                            <th>Acción</th>
+
                                                         </tr>
                                                     </thead>
                                                     <tfoot>
@@ -149,7 +149,7 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                   
+
                                                     </tbody> 
 
                                                 </table> 
@@ -163,7 +163,7 @@
                                             <div class="col-xs-4 col-sm-4 col-md-4">
                                                 <div class="form-group">
                                                     <label>Rut *</label>
-                                                    <input type="text" name="rut" id="rut"  class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                    <input required type="text" name="rut" id="rut"  class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
                                                     <div class="validation"></div>
                                                 </div>
                                             </div>
@@ -243,7 +243,7 @@
                                                             <th>Médico</th>
                                                             <th>Especialidad</th>
                                                             <th>Estado Atención</th>
-                                                           
+
                                                         </tr>
                                                     </thead>
                                                     <tfoot>
@@ -259,14 +259,14 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                   
+
                                                     </tbody> 
 
                                                 </table> 
                                             </div>  
                                         </form>
                                         <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                          
+
 
                                         </p>
                                         <p class="lead-footer">* We'll contact you by phone & email later</p>

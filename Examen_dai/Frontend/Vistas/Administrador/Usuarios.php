@@ -166,14 +166,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Rut</label>
-                                                        <input type="text" name="rut" id="txtRut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="rut" id="txtRut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Nombre Completo</label>
-                                                        <input type="text" name="nombre" id="txtRut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="nombre" id="txtRut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
@@ -190,7 +190,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                                 background-color: #fff;
                                                                 background-image: none;
                                                                 border: 1px solid #ccc;
-                                                                border-radius: 4px;">
+                                                                border-radius: 4px;" required>
                                                             <option value=""> -- Seleccione una opción --</option>
                                                            
                                                         </select>
@@ -201,14 +201,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Contraseña</label>
-                                                        <input type="password" name="pass" id="txtPass" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="password" name="pass" id="txtPass" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Repita Contraseña</label>
-                                                        <input type="password" name="pass2" id="txtPass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="password" name="pass2" id="txtPass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>

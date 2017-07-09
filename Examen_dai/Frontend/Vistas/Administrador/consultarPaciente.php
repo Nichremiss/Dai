@@ -138,7 +138,7 @@
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Rut *</label>
-                                                        <input type="text" name="rut" id="rut"  class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="rut" id="rut"  class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>

@@ -117,47 +117,47 @@
                                     <ul class="lead-list">
 
 
-                                         <form action="" method="POST">
+                                        <form action="" method="POST">
 
-            <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
-                <h5 class="h-ultra">Lista de atenciones</h5>
-            </div>
+                                            <div class="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
+                                                <h5 class="h-ultra">Lista de atenciones</h5>
+                                            </div>
 
-            <div class="datagrid">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Médico</th>
-                            <th>Especialidad</th>
-                            <th>Estado Atención</th>
-                            
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <td colspan="5">
-                                Listado de personas registradas
-                            </td>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                   
-                    </tbody> 
+                                            <div class="datagrid">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Fecha</th>
+                                                            <th>Hora</th>
+                                                            <th>Médico</th>
+                                                            <th>Especialidad</th>
+                                                            <th>Estado Atención</th>
 
-                </table> 
-            </div>  
-        </form>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td colspan="5">
+                                                                Listado de personas registradas
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <tbody>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+
+                                                    </tbody> 
+
+                                                </table> 
+                                            </div>  
+                                        </form>
 
 
                                         <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                          
+
 
                                         </p>
                                         <p class="lead-footer">* We'll contact you by phone & email later</p>

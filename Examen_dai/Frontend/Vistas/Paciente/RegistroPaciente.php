@@ -14,6 +14,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $usuario = UsuarioController::existeUsuario($_POST["rut"]);
             if ($paciente == null && $usuario == null) {
                 
+                
                 $exito = PacienteController::agregarPaciente($_POST["rut"], $_POST["nombre"],
                                                          $_POST["fecha"], $_POST["ddl_sexo"],
                                                          $_POST["direccion"], $_POST["telefono"], $_POST["pass"], $_POST["pass2"]);
@@ -150,21 +151,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Rut</label>
-                                                        <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars"required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Nombre Completo</label>
-                                                        <input type="text" name="nombre" id="nombre" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="text" name="nombre" id="nombre" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Fecha Nacimiento</label>
-                                                        <input type="date" name="fecha" id="fecha" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="date" name="fecha" id="fecha" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars"required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
@@ -184,7 +185,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                                 background-color: #fff;
                                                                 background-image: none;
                                                                 border: 1px solid #ccc;
-                                                                border-radius: 4px;">
+                                                                border-radius: 4px;" required>
                                                             <option></option>
                                                             <optgroup label="Seleccione una opción">
                                                                 <option value="F">Femenino</option>
@@ -196,14 +197,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Dirección</label>
-                                                        <input type="text" name="direccion" id="direccion" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
+                                                        <input type="text" name="direccion" id="direccion" class="form-control input-md" data-rule="required" data-msg="The phone number is required" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>N° Télefono</label>
-                                                        <input type="number" name="telefono" id="telefono" class="form-control input-md" data-rule="required" data-msg="The phone number is required">
+                                                        <input type="number" name="telefono" id="telefono" class="form-control input-md" data-rule="required" data-msg="The phone number is required" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
@@ -212,14 +213,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Contraseña</label>
-                                                        <input type="password" name="pass" id="pass" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="password" name="pass" id="pass" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Repita Contraseña</label>
-                                                        <input type="password" name="pass2" id="pass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars">
+                                                        <input type="password" name="pass2" id="pass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
                                                         <div class="validation"></div>
                                                     </div>
                                                 </div>

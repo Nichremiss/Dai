@@ -121,7 +121,7 @@ class ConexionDB {
              $mysqlConexion->exec("
     INSERT INTO `usuario`(`USUARIO_RUT`, `USUARIO_NOMBRE`, `USUARIO_PASSWORD`, `USUARIO_TIPO_USER`) VALUES
 
-	('195075476','Oscar Andres Jara Diaz','123456',2);");
+	('195075476','Oscar Andres Jara Diaz','MQAyADMANAA1ADYA',2);");
             
             $mysqlConexion->exec("
     CREATE TABLE IF NOT EXISTS `paciente` (
