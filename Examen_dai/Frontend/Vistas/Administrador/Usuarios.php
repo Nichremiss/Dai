@@ -6,7 +6,7 @@ include_once __DIR__ . "/../../../Backend/controller/UsuarioController.php";
 include_once __DIR__ . "/../../../Backend/controller/PacienteController.php";
 
 $listadoUsuarios = UsuarioController::listarUsuario();
-
+$errorMessage;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["txtRut"])) {
 
@@ -21,7 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["rut"]) && isset($_POST["nombre"]) && isset($_POST["ddl_Tipo_user"]) && isset($_POST["pass"]) && isset($_POST["pass2"])) {
         if ($_POST["pass"] != $_POST["pass2"]) {
-            return;
+            $errorMessage = 'usuario o clave incorrectos';
+
+            header("location: Usuarios.php");
         } else {
 
             $paciente = PacienteController::existePaciente($_POST["rut"]);
@@ -102,33 +104,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!--Navegador con sesiones -->
                     <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                         <ul class="nav navbar-nav">
-<?php
-if (isset($_SESSION["usuario"])) {
-    echo '<p><b>Usuario autenticado</b>: ' . $_SESSION["usuario"] . '</p>';
-    echo '<li><a href="/Examen_dai/Frontend/logout.php">Cerrar Session</a></li>';
-    if ($_SESSION["TipoUsuario"] == 1) {//Director
-        echo '<li><a href="ConsultarEstadisticas_Dir.php">Estadísticas</a><li>';
-        echo '<li><a href="Listar_Consultas_Dir.php">Consultar</a><li>';
-    }if ($_SESSION["TipoUsuario"] == 2) {//Administrador
-        echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Medicos.php">Administrar médicos</a><li>';
-        echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
-        echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Usuarios.php">Administrar Usuarios</a><li>';
-    }if ($_SESSION["TipoUsuario"] == 3) {//Secretaria
-        echo '<li><a href="Agendar_Confirmar_anular_atenciones.php">Adm. reservas</a><li>';
-        echo '<li><a href="List_Consultar_Pacientes_Medicos.php">Consultas</a><li>';
-        echo '<li><a href="List_consultar_atenciones.php"></a>';
-        echo '<li><a href="Marcar_perdida_realizada_atencion.php">Adm. Atenciones</a><li>';
-    }if ($_SESSION["TipoUsuario"] == 4) {//Paciente
-        echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
-    }
-    if ($_SESSION["TipoUsuario"] == 5) {//Paciente
-        echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
-    }
-} else {
-    echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
-    echo '<li><a href="/Examen_dai/Frontend/Vistas/Paciente/RegistroPaciente.php">Registro</a></li>';
-}
-?>
+                            <?php
+                            if (isset($_SESSION["usuario"])) {
+                                echo '<p><b>Usuario autenticado</b>: ' . $_SESSION["usuario"] . '</p>';
+                                echo '<li><a href="/Examen_dai/Frontend/logout.php">Cerrar Session</a></li>';
+                                if ($_SESSION["TipoUsuario"] == 1) {//Director
+                                    echo '<li><a href="ConsultarEstadisticas_Dir.php">Estadísticas</a><li>';
+                                    echo '<li><a href="Listar_Consultas_Dir.php">Consultar</a><li>';
+                                }if ($_SESSION["TipoUsuario"] == 2) {//Administrador
+                                    echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Medicos.php">Administrar médicos</a><li>';
+                                    echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
+                                    echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Usuarios.php">Administrar Usuarios</a><li>';
+                                }if ($_SESSION["TipoUsuario"] == 3) {//Secretaria
+                                    echo '<li><a href="Agendar_Confirmar_anular_atenciones.php">Adm. reservas</a><li>';
+                                    echo '<li><a href="List_Consultar_Pacientes_Medicos.php">Consultas</a><li>';
+                                    echo '<li><a href="List_consultar_atenciones.php"></a>';
+                                    echo '<li><a href="Marcar_perdida_realizada_atencion.php">Adm. Atenciones</a><li>';
+                                }if ($_SESSION["TipoUsuario"] == 4) {//Paciente
+                                    echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
+                                }
+                                if ($_SESSION["TipoUsuario"] == 5) {//Paciente
+                                    echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
+                                }
+                            } else {
+                                echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
+                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Paciente/RegistroPaciente.php">Registro</a></li>';
+                            }
+                            ?>
 
                         </ul>
                     </div>
@@ -161,8 +163,8 @@ if (isset($_SESSION["usuario"])) {
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Rut</label>
-                                                        <input type="text" name="rut" id="txtRut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
-                                                        <div class="validation"></div>
+                                                        <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
+                                                        <label style="color: red" id="txtRutInvalido"></label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
@@ -203,14 +205,13 @@ if (isset($_SESSION["usuario"])) {
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Repita Contraseña</label>
-                                                        <input type="password" name="pass2" id="txtPass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
-                                                        <div class="validation"></div>
+                                                        <input type="password" name="pass2" id="txtPass2" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>                                                        
                                                     </div>
                                                 </div>
                                             </div>
                                             <p class="text-right wow bounceIn" data-wow-delay="0.4s">
                                                 <a href="/Examen_dai/Frontend/Vistas/Administrador/consultarUsuario.php"><input type="button" class="btn btn-skin btn-lg" value="Buscar Usuario"><i class="fa fa-angle-right"></i></a>
-                                                <input type="submit" name="agregar" value="Agregar" class="btn btn-skin btn-lg">
+                                                <input type="submit" id="btn" name="agregar" value="Agregar" class="btn btn-skin btn-lg">
                                             </p>
 
                                             <p class="lead-footer">* We'll contact you by phone & email later</p>
@@ -244,8 +245,6 @@ if (isset($_SESSION["usuario"])) {
                                 <th>Tipo Usuario</th>
                                 <th>Accion</th>
                             </tr>
-
-
                         </thead>
                         <tfoot>
                             <tr>
@@ -254,10 +253,10 @@ if (isset($_SESSION["usuario"])) {
                                 </td>
                             </tr>
                         </tfoot>
-<?php
-foreach ($listadoUsuarios as $usuarios) {
-    /* @var $persona Persona */
-    ?>
+                        <?php
+                        foreach ($listadoUsuarios as $usuarios) {
+                            /* @var $persona Persona */
+                            ?>
                             <tbody>
                             <td><?= $usuarios->getUsuarioRut() ?></td>
                             <td><?= $usuarios->getUsuarioNombre() ?></td>
@@ -269,9 +268,9 @@ foreach ($listadoUsuarios as $usuarios) {
 
 
                             </tbody> 
-    <?php
-}
-?>
+                            <?php
+                        }
+                        ?>
                     </table> 
                 </div>  
             </form>
@@ -399,7 +398,8 @@ foreach ($listadoUsuarios as $usuarios) {
             <script src="../../js/owl.carousel.min.js"></script>
             <script src="../../js/nivo-lightbox.min.js"></script>
             <script src="../../js/custom.js"></script>
-
+            <script src="../../jquery.Rut.js"></script>
+            <script src="../../Login.js"></script>
     </body>
 
 </html>

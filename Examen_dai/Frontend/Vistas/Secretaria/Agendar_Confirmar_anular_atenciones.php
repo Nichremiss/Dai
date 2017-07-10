@@ -359,6 +359,9 @@
         <script src="../../js/owl.carousel.min.js"></script>
         <script src="../../js/nivo-lightbox.min.js"></script>
         <script src="../../js/custom.js"></script>
+         <script src="../../jquery.Rut.js"></script>
+        <script src="../../Login.js"></script>
+
 
     </body>
 </html>

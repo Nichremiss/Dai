@@ -16,21 +16,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-echo "No incluyo el campo nombre"; 
-    echo "<script type=\"text/javascript\">alert(\"Fotos guardadas\");</script>";  
-
         if(isset($_POST["rut"]) && isset($_POST["nombre"]) && isset($_POST["fechaN"]) && isset($_POST["ddl_especialidad"])
                 && isset($_POST["valor"]) ){
-            echo "<script type=\"text/javascript\">alert(\"ppprrr\");</script>";  
-
-            echo "paso a guardar"; 
+           
                     $agregarMedico = MedicoController::agregarMedico($_POST["rut"], $_POST["nombre"],
                                                               $_POST["fechaN"],$_POST["ddl_especialidad"], $_POST["valor"]);
                     if ($agregarMedico) {
                         header("location: Medicos.php");
                         return; 
-                    }
-                       
+                    }                      
         }
     }
 
@@ -165,8 +159,8 @@ echo "No incluyo el campo nombre";
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Rut</label>
-                                                        <input type="text" name="rut" id="name" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
-                                                        <div class="validation"></div>
+                                                        <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
+                                                        <label style="color: red" id="txtRutInvalido"></label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
@@ -215,7 +209,7 @@ echo "No incluyo el campo nombre";
                                             </div>
                                             
                                             <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                                <input type="submit" name="agregar" onclick="hola()"value="Agregar" class="btn btn-skin btn-lg">
+                                                <input type="submit" id="btn"name="agregar" onclick="hola()"value="Agregar" class="btn btn-skin btn-lg">
                                             </p>
 
                                             <p class="lead-footer">* We'll contact you by phone & email later</p>
@@ -274,7 +268,7 @@ echo "No incluyo el campo nombre";
                                 <td><?= $medicos->getMedicoConsulta()?></td>
 
                                 <td><input type="submit" value="Eliminar"></td>
-                                <td><input type="text" name="rutEliminar" value="<?= $medicos->getMedicoRut() ?>"></td>
+                                <td id="ocultarId"><input type="hidden" name="rutEliminar" value="<?= $medicos->getMedicoRut() ?>"></td>
 
 
                             </tbody> 
@@ -403,11 +397,18 @@ echo "No incluyo el campo nombre";
         <script src="../../js/jquery.scrollTo.js"></script>
         <script src="../../js/jquery.appear.js"></script>
         <script src="../../js/stellar.js"></script>
+           <script src="../../jquery.Rut.js"></script>
+        <script src="../../Login.js"></script>
         <script src="../../plugins/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
         <script src="../../js/owl.carousel.min.js"></script>
         <script src="../../js/nivo-lightbox.min.js"></script>
         <script src="../../js/custom.js"></script>
-
+        <script>
+        
+        
+        
+        </script>
+        
     </body>
 
 </html>

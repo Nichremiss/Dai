@@ -131,7 +131,7 @@ if (isset($_SESSION["usuario"])) {
                                                 <div class="form-group">
                                                     <label>Rut *</label>
                                                     <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
-                                                    <div class="validation"></div>
+                                                     <label style="color: red" id="txtRutInvalido"></label>
                                                 </div>
                                             </div>
                                             <div class="col-xs-4 col-sm-4 col-md-4">
@@ -291,6 +291,9 @@ if (isset($_SESSION["usuario"])) {
         <script src="../../js/owl.carousel.min.js"></script>
         <script src="../../js/nivo-lightbox.min.js"></script>
         <script src="../../js/custom.js"></script>
+         <script src="../../jquery.Rut.js"></script>
+        <script src="../../Login.js"></script>
+
 
     </body>
 

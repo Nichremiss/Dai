@@ -1,125 +1,128 @@
 <?php
-
 session_start();
 
 
-include_once __DIR__."/../../../Backend/controller/UsuarioController.php";
-include_once __DIR__."/../../../Backend/controller/PacienteController.php";
+include_once __DIR__ . "/../../../Backend/controller/UsuarioController.php";
+include_once __DIR__ . "/../../../Backend/controller/PacienteController.php";
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-    if(isset($_POST["rut"]) && isset($_POST["nombre"]) && isset($_POST["fecha"]) && isset($_POST["ddl_sexo"])
-            && isset($_POST["direccion"]) && isset($_POST["telefono"])&& isset($_POST["pass"])&& isset($_POST["pass2"])){
-        
-            $paciente = PacienteController::existePaciente($_POST["rut"]);
-            $usuario = UsuarioController::existeUsuario($_POST["rut"]);
-            if ($paciente == null && $usuario == null) {
-                
-                
-                $exito = PacienteController::agregarPaciente($_POST["rut"], $_POST["nombre"],
-                                                         $_POST["fecha"], $_POST["ddl_sexo"],
-                                                         $_POST["direccion"], $_POST["telefono"], $_POST["pass"], $_POST["pass2"]);
-                
-                $user = UsuarioController::agregarUsuario($_POST["rut"], $_POST["nombre"],$_POST["pass"], $_POST["pass2"], 4);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["rut"]) && isset($_POST["nombre"]) && isset($_POST["fecha"]) && isset($_POST["ddl_sexo"]) && isset($_POST["direccion"]) && isset($_POST["telefono"]) && isset($_POST["pass"]) && isset($_POST["pass2"])) {
+
+        $paciente = PacienteController::existePaciente($_POST["rut"]);
+        $usuario = UsuarioController::existeUsuario($_POST["rut"]);
+
+        if ($paciente == null && $usuario == null) {
+
+            if ($_POST["pass"] != $_POST["pass2"]) {
+                $errorMessage = 'usuario o clave incorrectos';
+                header("location: RegistroPaciente.php");
+                return;
+            } else {
+                $exito = PacienteController::agregarPaciente($_POST["rut"], $_POST["nombre"], $_POST["fecha"], $_POST["ddl_sexo"], $_POST["direccion"], $_POST["telefono"], $_POST["pass"], $_POST["pass2"]);
+
+                $user = UsuarioController::agregarUsuario($_POST["rut"], $_POST["nombre"], $_POST["pass"], $_POST["pass2"], 4);
                 if ($exito && $user) {
-                    
+
                     header("location: ../../index.php");
                     return;
                 }
             }
+        }
     }
-            
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="">
+            <meta name="author" content="">
 
-        <title>Exámen Final DAI-*****</title>
+            <title>Exámen Final DAI-*****</title>
 
-        <!-- css -->
-        <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="../../plugins/cubeportfolio/css/cubeportfolio.min.css">
-        <link href="../../css/nivo-lightbox.css" rel="stylesheet" />
-        <link href="../../css/nivo-lightbox-theme/default/default.css" rel="stylesheet" type="text/css" />
-        <link href="../../css/owl.carousel.css" rel="stylesheet" media="screen" />
-        <link href="../../css/owl.theme.css" rel="stylesheet" media="screen" />
-        <link href="../../css/animate.css" rel="stylesheet" />
-        <link href="../../css/style.css" rel="stylesheet">
+            <!-- css -->
+            <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+            <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+            <link rel="stylesheet" type="text/css" href="../../plugins/cubeportfolio/css/cubeportfolio.min.css">
+            <link href="../../css/nivo-lightbox.css" rel="stylesheet" />
+            <link href="../../css/nivo-lightbox-theme/default/default.css" rel="stylesheet" type="text/css" />
+            <link href="../../css/owl.carousel.css" rel="stylesheet" media="screen" />
+            <link href="../../css/owl.theme.css" rel="stylesheet" media="screen" />
+            <link href="../../css/animate.css" rel="stylesheet" />
+            <link href="../../css/style.css" rel="stylesheet">
 
-        <!-- boxed bg -->
-        <link id="bodybg" href="../../bodybg/bg1.css" rel="stylesheet" type="text/css" />
-        <!-- template skin -->
-        <link id="t-colors" href="../../color/default.css" rel="stylesheet">
+            <script src="../../Js/jquery-3.2.1.js"></script>
 
-        <!-- =======================================================
-            Theme Name: Medicio
-            Theme URL: https://bootstrapmade.com/medicio-free-bootstrap-theme/
-            Author: BootstrapMade
-            Author URL: https://bootstrapmade.com
-        ======================================================= -->
-    </head>
+            <!-- boxed bg -->
+            <link id="bodybg" href="../../bodybg/bg1.css" rel="stylesheet" type="text/css" />
+            <!-- template skin -->
+            <link id="t-colors" href="../../color/default.css" rel="stylesheet">
 
-    <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+            <!-- =======================================================
+                Theme Name: Medicio
+                Theme URL: https://bootstrapmade.com/medicio-free-bootstrap-theme/
+                Author: BootstrapMade
+                Author URL: https://bootstrapmade.com
+            ======================================================= -->
+        </head>
+
+        <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
 
 
-        <div id="wrapper">
+            <div id="wrapper">
 
-            <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-                <div class="top-area">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-6 col-md-6">
-                                <p class="bold text-left">Poner Fecha Actual</p>
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <p class="bold text-right">LLamanos +562 008 65 001</p>
+                <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+                    <div class="top-area">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <p class="bold text-left">Poner Fecha Actual</p>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <p class="bold text-right">LLamanos +562 008 65 001</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="container navigation">
+                    <div class="container navigation">
 
-                    <div class="navbar-header page-scroll">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                        <a class="navbar-brand" href="../../Index.php">
-                            <img src="../../img/logo.png" alt="" width="150" height="40" />
-                        </a>
-                    </div>
-                    <!--Navegador con sesiones -->
-                    <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                        <ul class="nav navbar-nav">
-                            <?php
-                            if (isset($_SESSION["TipoUsuario"]) == 1) {//Director
-                                echo '<li><a href="ConsultarEstadisticas_Dir.php">Estadísticas</a><li>';
-                                echo '<li><a href="Listar_Consultas_Dir.php">Consultar</a><li>';
-                                echo '<li><a href="logout.php"> Cerrar Session</a><li>';
-                            }if (isset($_SESSION["TipoUsuario"]) == 2) {//Administrador
-                                echo '<li><a href="Listar_ consultar_contratar_despedir_medicos.php">Administrar médicos</a><li>';
-                                echo '<li><a href="Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
-                                echo '<li><a href="Listar_consulta_ registrar_eliminar_usuarios.php">Administrar Usuarios</a><li>';
-                                echo '<li><a href="logout.php"> Cerrar Session </a><li>';
-                            }if (isset($_SESSION["TipoUsuario"]) == 3) {//Secretaria
-                                echo '<li><a href="Agendar_Confirmar_anular_atenciones.php">Adm. reservas</a><li>';
-                                echo '<li><a href="List_Consultar_Pacientes_Medicos.php">Consultas</a><li>';
-                                echo '<li><a href="List_consultar_atenciones.php"></a>';
-                                echo '<li><a href="Marcar_perdida_realizada_atencion.php">Adm. Atenciones</a><li>';
-                                echo '<li><a href="logout.php"> Cerrar Session </a><li>';
-                            }if (isset($_SESSION["TipoUsuario"]) == 4) {//Paciente
-                                echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
-                                echo '<li><a href="logout.php"> Cerrar Session </a>';
-                            } else {
-                                echo ' <li><a href="../../Index.php" >Volver</a></li>;';
-                                echo '<li><a href="../Paciente/RegistroPaciente.php">Registro</a></li>';
-                            }
-                            ?>
+                        <div class="navbar-header page-scroll">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <a class="navbar-brand" href="../../Index.php">
+                                <img src="../../img/logo.png" alt="" width="150" height="40" />
+                            </a>
+                        </div>
+                        <!--Navegador con sesiones -->
+                        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                            <ul class="nav navbar-nav">
+    <?php
+    if (isset($_SESSION["TipoUsuario"]) == 1) {//Director
+        echo '<li><a href="ConsultarEstadisticas_Dir.php">Estadísticas</a><li>';
+        echo '<li><a href="Listar_Consultas_Dir.php">Consultar</a><li>';
+        echo '<li><a href="logout.php"> Cerrar Session</a><li>';
+    }if (isset($_SESSION["TipoUsuario"]) == 2) {//Administrador
+        echo '<li><a href="Listar_ consultar_contratar_despedir_medicos.php">Administrar médicos</a><li>';
+        echo '<li><a href="Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
+        echo '<li><a href="Listar_consulta_ registrar_eliminar_usuarios.php">Administrar Usuarios</a><li>';
+        echo '<li><a href="logout.php"> Cerrar Session </a><li>';
+    }if (isset($_SESSION["TipoUsuario"]) == 3) {//Secretaria
+        echo '<li><a href="Agendar_Confirmar_anular_atenciones.php">Adm. reservas</a><li>';
+        echo '<li><a href="List_Consultar_Pacientes_Medicos.php">Consultas</a><li>';
+        echo '<li><a href="List_consultar_atenciones.php"></a>';
+        echo '<li><a href="Marcar_perdida_realizada_atencion.php">Adm. Atenciones</a><li>';
+        echo '<li><a href="logout.php"> Cerrar Session </a><li>';
+    }if (isset($_SESSION["TipoUsuario"]) == 4) {//Paciente
+        echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
+        echo '<li><a href="logout.php"> Cerrar Session </a>';
+    } else {
+        echo ' <li><a href="../../Index.php" >Volver</a></li>;';
+        echo '<li><a href="../Paciente/RegistroPaciente.php">Registro</a></li>';
+    }
+    ?>
                         </ul>
                     </div>
                 </div> 
@@ -152,7 +155,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <div class="form-group">
                                                         <label>Rut</label>
                                                         <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars"required>
-                                                        <div class="validation"></div>
+                                                        <label style="color: red" id="txtRutInvalido"></label>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
@@ -194,7 +197,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                         </select>
                                                     </div>
                                                 </div>
-                                               <div class="col-xs-4 col-sm-4 col-md-4">
+                                                <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Dirección</label>
                                                         <input type="text" name="direccion" id="direccion" class="form-control input-md" data-rule="required" data-msg="The phone number is required" required>
@@ -209,7 +212,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     </div>
                                                 </div>
                                             </div>
-                                               <div class="row">
+                                            <div class="row">
                                                 <div class="col-xs-4 col-sm-4 col-md-4">
                                                     <div class="form-group">
                                                         <label>Contraseña</label>
@@ -225,17 +228,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     </div>
                                                 </div>
                                             </div>
-                                    <p class="text-right wow bounceIn" data-wow-delay="0.4s">
-                                        <input type="submit" class="btn btn-skin btn-lg" value="Guardar"><i class="fa fa-angle-right"></i>
-                                        
-                                    </p>
+                                            <p class="text-right wow bounceIn" data-wow-delay="0.4s">
+                                                <input type="submit" id="btn"class="btn btn-skin btn-lg" value="Guardar"><i class="fa fa-angle-right"></i>
+
+                                            </p>
 
                                             <p class="lead-footer">* We'll contact you by phone & email later</p>
 
                                         </form>
 
                                     </ul>
-                                  
+
                                 </div>
                             </div>
                         </div>				
@@ -364,7 +367,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <script src="../../js/owl.carousel.min.js"></script>
         <script src="../../js/nivo-lightbox.min.js"></script>
         <script src="../../js/custom.js"></script>
+        <script src="../../jquery.Rut.js"></script>
+        <script src="../../Login.js"></script>
 
-</body>
+    </body>
 
 </html>

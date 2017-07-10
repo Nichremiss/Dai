@@ -1,7 +1,6 @@
 <?php
 include_once __DIR__ . "/../Backend/dao/ConexionDB.php";
 include_once __DIR__ . "/../Backend/controller/UsuarioController.php";
-$conexion = ConexionDB::getConexion();
 
 session_start();
 
@@ -32,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <title>Exámen Final DAI-*****</title>
 
+
         <!-- css -->
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -42,6 +42,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <link href="css/owl.theme.css" rel="stylesheet" media="screen" />
         <link href="css/animate.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet">
+
+        <script src="Js/jquery-3.2.1.js"></script>
+
+        <script src="Login.js"></script>
+
+
 
         <!-- boxed bg -->
         <link id="bodybg" href="bodybg/bg1.css" rel="stylesheet" type="text/css" />
@@ -66,7 +72,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="container">
                         <div class="row">
                             <div class="col-sm-6 col-md-6">
-                                <p class="bold text-left">Poner Fecha Actual</p>
+                                <p class="bold text-left"><?php
+//Establecer la información local en castellano de España
+                                    setlocale(LC_TIME, "es_ES");
+                                    echo strftime("Fecha %A/ %B /%Y");
+                                    echo strftime(" -- Hora actual %H:%M");
+                                    ?>
+
+                                </p>
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <p class="bold text-right">LLamanos +562 008 65 001</p>
@@ -75,7 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
                 <div class="container navigation">
-
                     <div class="navbar-header page-scroll">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                             <i class="fa fa-bars"></i>
@@ -91,30 +103,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             if (isset($_SESSION["usuario"])) {
                                 echo '<p><b>Usuario autenticado</b>: ' . $_SESSION["usuario"] . '</p>';
                                 echo '<li><a href="/Examen_dai/Frontend/logout.php">Cerrar Session</a></li>';
-                                 if ($_SESSION["TipoUsuario"] == 1) {//Director
-                                echo '<li><a href="ConsultarEstadisticas_Dir.php">Estadísticas</a><li>';
-                                echo '<li><a href="Listar_Consultas_Dir.php">Consultar</a><li>';
-                            }if ($_SESSION["TipoUsuario"] == 2) {//Administrador
-                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Medicos.php">Administrar médicos</a><li>';
-                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
-                                echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Usuarios.php">Administrar Usuarios</a><li>';
-                                
-                            }if ($_SESSION["TipoUsuario"] == 3){//Secretaria
-                                echo '<li><a href="Agendar_Confirmar_anular_atenciones.php">Adm. reservas</a><li>';
-                                echo '<li><a href="List_Consultar_Pacientes_Medicos.php">Consultas</a><li>';
-                                echo '<li><a href="List_consultar_atenciones.php"></a>';
-                                echo '<li><a href="Marcar_perdida_realizada_atencion.php">Adm. Atenciones</a><li>';
-                                
-                            }if ($_SESSION["TipoUsuario"] == 4) {//Paciente
-                                echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
-                                
+                                if ($_SESSION["TipoUsuario"] == 1) {//Director
+                                    echo '<li><a href="ConsultarEstadisticas_Dir.php">Estadísticas</a><li>';
+                                    echo '<li><a href="Listar_Consultas_Dir.php">Consultar</a><li>';
+                                }if ($_SESSION["TipoUsuario"] == 2) {//Administrador
+                                    echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Medicos.php">Administrar médicos</a><li>';
+                                    echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Listar_consult_registrar_Eliminar_Pacientes.php">Administrar Pacientes</a><li>';
+                                    echo '<li><a href="/Examen_dai/Frontend/Vistas/Administrador/Usuarios.php">Administrar Usuarios</a><li>';
+                                }if ($_SESSION["TipoUsuario"] == 3) {//Secretaria
+                                    echo '<li><a href="Agendar_Confirmar_anular_atenciones.php">Adm. reservas</a><li>';
+                                    echo '<li><a href="List_Consultar_Pacientes_Medicos.php">Consultas</a><li>';
+                                    echo '<li><a href="List_consultar_atenciones.php"></a>';
+                                    echo '<li><a href="Marcar_perdida_realizada_atencion.php">Adm. Atenciones</a><li>';
+                                }if ($_SESSION["TipoUsuario"] == 4) {//Paciente
+                                    echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
                                 }
                                 if ($_SESSION["TipoUsuario"] == 5) {//Paciente
-                                echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
-                                
+                                    echo '<li><a href="Lista_Consulta_Atenciones.php">Atenciones</a>';
                                 }
-                            }
-                            else {
+                            } else {
                                 echo '<li><a href="#" data-toggle="modal" data-target="#ModalLogin">Login</a></li>';
                                 echo '<li><a href="/Examen_dai/Frontend/Vistas/Paciente/RegistroPaciente.php">Registro</a></li>';
                             }
@@ -283,7 +290,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-body">
+               
                     <!--contenido-->
                     <div class="col-md-12">
                         <div class="form-wrapper">
@@ -302,8 +309,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                                     <div class="form-group">
                                                         <label>Rut</label>
-                                                        <input type="text" name="rut" id="rut" class="form-control input-md" data-rule="minlen:3" data-msg="Please enter at least 3 chars" required>
-                                                        <div class="validation"></div>
+                                                        <input type="text" name="rut" id="rut" class="form-control input-md" required>
+                                                        <label style="color: red" id="txtRutInvalido"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -317,18 +324,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     </div>
                                                 </div>
                                             </div>    
-                                        <div class="modal-footer">
-                                            <input type="submit" value="Ingresar" class="btn btn-skin btn-block btn-lg">
-                                            <p class="lead-footer">* Si tiene inconveniente,comuniquese con la administracion</p>
-                                        </div>  
+                                            <div class="modal-footer">
+                                                <input type="submit" value="Ingresar"  id="btn"class="btn btn-skin btn-block btn-lg">
+                                                <p class="lead-footer">* Si tiene inconveniente,comuniquese con la administracion</p>
+                                            </div>  
                                         </form>
                                     </div>
                                 </div>				
 
                             </div>
                         </div>
-                    </div>				
-                    
+                    			
+
                 </div>
 
             </div>
@@ -341,13 +348,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <script src="js/jquery.easing.min.js"></script>
         <script src="js/wow.min.js"></script>
         <script src="js/jquery.scrollTo.js"></script>
+        <script src="jquery.Rut.js"></script>
         <script src="js/jquery.appear.js"></script>
         <script src="js/stellar.js"></script>
         <script src="plugins/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
         <script src="js/owl.carousel.min.js"></script>
         <script src="js/nivo-lightbox.min.js"></script>
         <script src="js/custom.js"></script>
+        <script>
 
+        </script>
 </body>
 
 </html>
